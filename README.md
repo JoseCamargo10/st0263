@@ -9,9 +9,11 @@
 
 ## Reto #1: Aplicaciones P2P
 
-### 1. breve descripción de la actividad
-#
-<texto descriptivo>
+### 1. Descripción de la Actividad
+En esta actividad se realiza el diseño e implementación de un sistema P2P, en el que cada nodo contiene uno o más microservicios para implementar las funcionalidades que soportan un sistema 
+de compartición de archivos totalmente distribuido y descentralizado.
+En esta versión del reto se implementa una red P2P basada y soportada en una tabla hash distribuida (DHT), utilizando como lenguaje a Java.
+
 ## 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
 
 ## 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
