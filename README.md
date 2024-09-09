@@ -1,6 +1,8 @@
 # ST0263 | Tópicos Especiales en Telemática
 #
-# Estudiante(s): nombre, email-eafit
+# Estudiante(s): 
+- José Manuel Camargo Hoyos | jmcamargoh@eafit.edu.co
+- Jose David Valencia Calle | jdvalenci2@eafit.edu.co
 #
 # Profesor: nombre, email-eafit
 #
