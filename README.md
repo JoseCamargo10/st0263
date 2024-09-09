@@ -1,15 +1,15 @@
 # ST0263 | Tópicos Especiales en Telemática
 
-# Estudiantes: 
+## Estudiantes: 
 - José Manuel Camargo Hoyos | jmcamargoh@eafit.edu.co
 - Jose David Valencia Calle | jdvalenci2@eafit.edu.co
 
-# Profesor:
+## Profesor:
 - Juan Carlos Montoya Mendoza | jcjcmontoy@eafit.edu.co
 
-# Reto #1: Aplicaciones P2P
+## Reto #1: Aplicaciones P2P
 
-# 1. breve descripción de la actividad
+### 1. breve descripción de la actividad
 #
 <texto descriptivo>
 ## 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
