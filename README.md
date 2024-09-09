@@ -14,38 +14,32 @@ En esta actividad se realiza el diseño e implementación de un sistema P2P, en 
 de compartición de archivos totalmente distribuido y descentralizado.
 En esta versión del reto se implementa una red P2P basada y soportada en una tabla hash distribuida (DHT), utilizando como lenguaje a Java.
 
-## 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+#### 1.1. Requerimientos Funcionales y No Funcionales Alcanzados (Propuesta del Profesor)
 
-## 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+#### 1.2. Requerimientos Funcionales y No Funcionales No Alcanzados (Propuesta del Profesor)
 
-# 2. información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
+### 2. Información General de Diseño de Alto Nivel | Arquitectura | Patrones | Mejores Prácticas Utilizadas
 
-# 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+### 3. Descripción del Ambiente de Desarrollo y Técnico
+- Lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+- Como se compila y ejecuta.
+- Detalles del desarrollo.
+- Detalles técnicos
+- Descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
+- Opcional - detalles de la organización del código por carpetas o descripción de algún archivo. (ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO, comando 'tree' de linux)
+- Opcional - si quiere mostrar resultados o pantallazos 
 
-## como se compila y ejecuta.
-## detalles del desarrollo.
-## detalles técnicos
-## descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
-## opcional - detalles de la organización del código por carpetas o descripción de algún archivo. (ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO, comando 'tree' de linux)
-## 
-## opcionalmente - si quiere mostrar resultados o pantallazos 
+### 4. Descripción del Ambiente de Ejecución (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+- IP o nombres de dominio en nube o en la máquina servidor.
+- Descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
+- Como se lanza el servidor.
+- Una mini guia de como un usuario utilizaría el software o la aplicación
+- Opcionalmente - si quiere mostrar resultados o pantallazos 
 
-# 4. Descripción del ambiente de EJECUCIÓN (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+### 5. Información Adicional (si se requiere)
 
-# IP o nombres de dominio en nube o en la máquina servidor.
-
-## descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
-
-## como se lanza el servidor.
-
-## una mini guia de como un usuario utilizaría el software o la aplicación
-
-## opcionalmente - si quiere mostrar resultados o pantallazos 
-
-# 5. otra información que considere relevante para esta actividad.
-
-# referencias:
+### Referencias:
 <debemos siempre reconocer los créditos de partes del código que reutilizaremos, así como referencias a youtube, o referencias bibliográficas utilizadas para desarrollar el proyecto o la actividad>
-## sitio1-url 
-## sitio2-url
-## url de donde tomo info para desarrollar este proyecto
+- sitio1-url 
+- sitio2-url
+- url de donde tomo info para desarrollar este proyecto
