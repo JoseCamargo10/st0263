@@ -1,9 +1,9 @@
 # ST0263 | Tópicos Especiales en Telemática
-#
+
 # Estudiante(s): 
 - José Manuel Camargo Hoyos | jmcamargoh@eafit.edu.co
 - Jose David Valencia Calle | jdvalenci2@eafit.edu.co
-#
+
 # Profesor: nombre, email-eafit
 #
 # <para borrar: EL OBJETIVO DE ESTA DOCUMENTACÍON ES QUE CUALQUIER LECTOR CON EL REPO, EN ESPECIAL EL PROFESOR, ENTIENDA EL ALCANCE DE LO DESARROLLADO Y QUE PUEDA REPRODUCIR SIN EL ESTUDIANTE EL AMBIENTE DE DESARROLLO Y EJECUTAR Y USAR LA APLICACIÓN SIN PROBLEMAS>
