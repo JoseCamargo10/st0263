@@ -5,7 +5,7 @@
 - Jose David Valencia Calle | jdvalenci2@eafit.edu.co
 
 ## Profesor:
-- Juan Carlos Montoya Mendoza | jcjcmontoy@eafit.edu.co
+- Juan Carlos Montoya Mendoza | jcmontoy@eafit.edu.co
 
 ## Reto #1: Aplicaciones P2P
 
