@@ -1,17 +1,14 @@
 # ST0263 | Tópicos Especiales en Telemática
 
-# Estudiante(s): 
+# Estudiantes: 
 - José Manuel Camargo Hoyos | jmcamargoh@eafit.edu.co
 - Jose David Valencia Calle | jdvalenci2@eafit.edu.co
 
-# Profesor: nombre, email-eafit
-#
-# <para borrar: EL OBJETIVO DE ESTA DOCUMENTACÍON ES QUE CUALQUIER LECTOR CON EL REPO, EN ESPECIAL EL PROFESOR, ENTIENDA EL ALCANCE DE LO DESARROLLADO Y QUE PUEDA REPRODUCIR SIN EL ESTUDIANTE EL AMBIENTE DE DESARROLLO Y EJECUTAR Y USAR LA APLICACIÓN SIN PROBLEMAS>
+# Profesor:
+- Juan Carlos Montoya Mendoza | jcjcmontoy@eafit.edu.co
 
-# <para borrar: renombre este archivo a README.md cuando lo vaya a usar en un caso específico>
+# Reto #1: Aplicaciones P2P
 
-# nombre del proyecto, lab o actividad
-#
 # 1. breve descripción de la actividad
 #
 <texto descriptivo>
