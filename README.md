@@ -24,6 +24,7 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 - Lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 - *JDK 22.0.2:* https://www.oracle.com/java/technologies/downloads/?er=221886
 - *Gradle 8.10.1:* https://gradle.org/install/
+- *Maven 3.9.9:* https://maven.apache.org/download.cgi
 - *Protocol Buffers 28.0:* https://github.com/protocolbuffers/protobuf/releases
 - Como se compila y ejecuta.
 - Detalles del desarrollo.
