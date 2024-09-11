@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.example.p2p";
+option java_outer_classname = "P2PProto";
+
+service P2PService {
+   // Cada nodo puede enviar un mensaje a otro nodo
+   rpc sendMessage (MessageRequest) returns (MessageResponse) {}
+}
+
+message MessageRequest {
+   string message = 1;
+}
+
+message MessageResponse {
+   string response = 1;
+}
