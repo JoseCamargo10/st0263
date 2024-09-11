@@ -23,7 +23,6 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 ### 3. Descripción del Ambiente de Desarrollo y Técnico
 - Lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 - *JDK 22.0.2:* https://www.oracle.com/java/technologies/downloads/?er=221886
-- *Gradle 8.10.1:* https://gradle.org/install/
 - *Maven 3.9.9:* https://maven.apache.org/download.cgi
 - *Protocol Buffers 28.0:* https://github.com/protocolbuffers/protobuf/releases
 - Como se compila y ejecuta.
@@ -44,6 +43,7 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 
 ### Referencias:
 <debemos siempre reconocer los créditos de partes del código que reutilizaremos, así como referencias a youtube, o referencias bibliográficas utilizadas para desarrollar el proyecto o la actividad>
+- https://www.youtube.com/watch?v=FLczfVQ7n7o&ab_channel=SaravananSeenivasan
 - sitio1-url 
 - sitio2-url
 - url de donde tomo info para desarrollar este proyecto
