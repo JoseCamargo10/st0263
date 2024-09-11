@@ -44,6 +44,7 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 ### Referencias:
 <debemos siempre reconocer los créditos de partes del código que reutilizaremos, así como referencias a youtube, o referencias bibliográficas utilizadas para desarrollar el proyecto o la actividad>
 - https://www.youtube.com/watch?v=FLczfVQ7n7o&ab_channel=SaravananSeenivasan
+- https://mvnrepository.com/search?q=dht
 - sitio1-url 
 - sitio2-url
 - url de donde tomo info para desarrollar este proyecto
