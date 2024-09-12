@@ -24,7 +24,7 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 - Lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 - *JDK 22.0.2:* https://www.oracle.com/java/technologies/downloads/?er=221886
 - *Maven 3.9.9:* https://maven.apache.org/download.cgi
-- *Protocol Buffers 28.0:* https://github.com/protocolbuffers/protobuf/releases
+- *Protocol Buffers 3.20.3:* https://github.com/protocolbuffers/protobuf/releases
 - Como se compila y ejecuta.
 - Detalles del desarrollo.
 - Detalles técnicos
@@ -45,6 +45,9 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 <debemos siempre reconocer los créditos de partes del código que reutilizaremos, así como referencias a youtube, o referencias bibliográficas utilizadas para desarrollar el proyecto o la actividad>
 - https://www.youtube.com/watch?v=FLczfVQ7n7o&ab_channel=SaravananSeenivasan
 - https://mvnrepository.com/search?q=dht
-- sitio1-url 
-- sitio2-url
-- url de donde tomo info para desarrollar este proyecto
+- https://www.youtube.com/watch?v=TR-otP45eYU&ab_channel=Techtter
+- https://os72.github.io/protoc-jar-maven-plugin/index.html
+- https://github.com/os72/protoc-jar-maven-plugin
+- https://www.xolstice.org/protobuf-maven-plugin/
+- https://grpc.io/docs/languages/java/basics/
+- https://github.com/RitanMihai/Book-Finder/tree/37bef33df2b1a5b4a2e377ddb024d0dc6ed0fd77
