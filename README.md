@@ -51,3 +51,5 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 - https://www.xolstice.org/protobuf-maven-plugin/
 - https://grpc.io/docs/languages/java/basics/
 - https://github.com/RitanMihai/Book-Finder/tree/37bef33df2b1a5b4a2e377ddb024d0dc6ed0fd77
+- https://docs.oracle.com/javase/7/docs/api/java/security/MessageDigest.html
+- https://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
