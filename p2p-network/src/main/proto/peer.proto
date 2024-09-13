@@ -3,15 +3,56 @@ syntax = "proto3";
 option java_package = "com.example.p2pnetwork";
 option java_outer_classname = "P2PServiceProto";
 
+import "google/protobuf/empty.proto";
+
 service P2PService {
-   // Cada nodo puede enviar un mensaje a otro nodo
-   rpc sendMessage (MessageRequest) returns (MessageResponse) {}
+   //rpc sendMessage (MessageRequest) returns (MessageResponse) {}
+
+   // Ask position (predecessor and successor) for a new peer
+    rpc JoinNetwork(JoinRequest) returns (JoinResponse);
+
+    // Notify a peer about its new successor
+    rpc UpdateSuccessor(PeerInfo) returns (google.protobuf.Empty);
+
+    // Notify a peer about its new predecessor
+    rpc UpdatePredecessor(PeerInfo) returns (google.protobuf.Empty);
+
+    // Notify that a peer is leaving the network
+    rpc NotifyLeave(LeaveRequest) returns (google.protobuf.Empty);
 }
 
-message MessageRequest {
+message PeerInfo {
+    int32 peerID = 1;         // Unique ID for every peer
+    string address = 2;       // IP Direction for peers (localhost in development)
+    int32 port = 3;           // Port which peer uses to listen
+}
+
+// Mesage to return peer's predecessor and successor
+message PeerPosition {
+    PeerInfo predecessor = 1;
+    PeerInfo successor = 2;
+}
+
+// Request to join the network, sending new peer's information
+message JoinRequest {
+    PeerInfo newPeer = 1;
+}
+
+// Response to join the network, returning assigned predecessor and successor
+message JoinResponse {
+    PeerPosition position = 1;
+}
+
+// Message to notify any peer's disconnection
+message LeaveRequest {
+    PeerInfo leavingPeer = 1;
+}
+
+// ------------------------------------------------------------------------------------
+/*message MessageRequest {
    string message = 1;
 }
 
 message MessageResponse {
    string response = 1;
-}
+}*/
