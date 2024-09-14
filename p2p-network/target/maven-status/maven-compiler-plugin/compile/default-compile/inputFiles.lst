@@ -1,6 +1,5 @@
-D:\Universidad\2024-2\Topicos_Especiales _En_Telematica\st0263\p2p-network\target\generated-sources\protobuf\grpc-java\com\example\p2pnetwork\P2PServiceGrpc.java
-D:\Universidad\2024-2\Topicos_Especiales _En_Telematica\st0263\p2p-network\src\main\java\com\example\P2PServer.java
-D:\Universidad\2024-2\Topicos_Especiales _En_Telematica\st0263\p2p-network\src\main\java\com\example\P2PClient.java
-D:\Universidad\2024-2\Topicos_Especiales _En_Telematica\st0263\p2p-network\src\main\java\com\example\Peer.java
-D:\Universidad\2024-2\Topicos_Especiales _En_Telematica\st0263\p2p-network\src\main\java\com\example\App.java
-D:\Universidad\2024-2\Topicos_Especiales _En_Telematica\st0263\p2p-network\target\generated-sources\protobuf\java\com\example\p2pnetwork\P2PServiceProto.java
+D:\Universidad\2024-2\Topicos_Especiales_En_Telematica\st0263\p2p-network\src\main\java\com\example\Peer.java
+D:\Universidad\2024-2\Topicos_Especiales_En_Telematica\st0263\p2p-network\target\generated-sources\protobuf\java\com\example\p2pnetwork\P2PServiceProto.java
+D:\Universidad\2024-2\Topicos_Especiales_En_Telematica\st0263\p2p-network\src\main\java\com\example\PeerServer.java
+D:\Universidad\2024-2\Topicos_Especiales_En_Telematica\st0263\p2p-network\src\main\java\com\example\PeerClient.java
+D:\Universidad\2024-2\Topicos_Especiales_En_Telematica\st0263\p2p-network\target\generated-sources\protobuf\grpc-java\com\example\p2pnetwork\P2PServiceGrpc.java

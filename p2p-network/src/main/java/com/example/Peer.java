@@ -21,7 +21,71 @@ import java.util.*;
 import sun.awt.util.ThreadGroupUtils;
 
 public class Peer {
-    private int peerID;
+    private final String peerID;
+    private final int port;
+    private PeerServer server;
+    private PeerClient client;
+
+    public Peer(String peerID, int port) {
+        this.peerID = peerID;
+        this.port = port;
+        this.server = new PeerServer(peerID, port);
+        this.client = new PeerClient(peerID, port);
+    }
+
+    // Iniciar el servidor y el cliente
+    public void start() throws IOException, InterruptedException {
+        // Iniciar el servidor
+        server.startServer();
+
+        // Mantener el servidor activo
+        new Thread(() -> {
+            try {
+                server.blockUntilShutdown();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    // Método para enviar un saludo a otro peer
+    public void sendGreeting(String targetHost, int targetPort, String message) {
+        client.sendGreetingToPeer(targetHost, targetPort, message);
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Scanner userInput = new Scanner(System.in);
+        System.out.print("Please provide a peerID: ");
+        String peerID = userInput.nextLine();
+        System.out.print("Provide the port to use: ");
+        String portString = userInput.nextLine();
+        int port = Integer.parseInt(portString);
+        System.out.print("Do you want to send a message? (y/n): ");
+        String decision = userInput.nextLine();
+
+        if (decision.equals("n")) {
+            System.out.println("");
+            Peer peer = new Peer(peerID, port);
+            peer.start();
+        } else if (decision.equals("y")) {
+            System.out.print("\nIndicate target host: ");
+            String targetHost = userInput.nextLine();
+            System.out.print("Indicate the target port: ");
+            String targetPortString = userInput.nextLine();
+            int targetPort = Integer.parseInt(targetPortString);
+            System.out.print("Write message to send: ");
+            String message = userInput.nextLine();
+
+            Peer peer = new Peer(peerID, port);
+            peer.start();
+            peer.sendGreeting(targetHost, targetPort, message);
+        } else {
+            System.out.println("Invalid command");
+        }
+    }
+
+    // First try of DHT INCOMPLETE and INCORRECT
+    /*private int peerID;
     private PeerInfo predecessor;
     private PeerInfo successor;
     private Server peerServer;  // gRPC server inside each peer
@@ -123,5 +187,5 @@ public class Peer {
         peer.startServer(port);
         //peer.runClient();
         peer.peerServer.awaitTermination();
-    }
+    }*/
 }
