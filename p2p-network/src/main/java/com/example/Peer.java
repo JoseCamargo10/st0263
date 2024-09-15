@@ -17,6 +17,9 @@ import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
 import java.util.*;
+import javax.swing.*;
+
+import com.sun.security.ntlm.Client;
 
 import sun.awt.util.ThreadGroupUtils;
 
@@ -33,12 +36,14 @@ public class Peer {
         this.client = new PeerClient(peerID, port);
     }
 
-    // Iniciar el servidor y el cliente
+    // Start server anc client
     public void start() throws IOException, InterruptedException {
-        // Iniciar el servidor
+        // Start server
         server.startServer();
+        // Start client interface
+        client.userInterface(peerID, port);
 
-        // Mantener el servidor activo
+        // Keep server alive
         new Thread(() -> {
             try {
                 server.blockUntilShutdown();
@@ -54,34 +59,66 @@ public class Peer {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        Scanner userInput = new Scanner(System.in);
+        // New frame
+        JFrame frame = new JFrame("P2P Network | Register");
+        frame.setSize(1000,500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create a panel to contain the components
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        frame.setVisible(true);
+        panel.setLayout(null);
+
+        // Title label
+        JLabel titleLabel = new JLabel("PEER REGISTER");
+        titleLabel.setBounds(10, 20, 200, 25);
+        panel.add(titleLabel);
+
+        // PEERID
+        JLabel idLabel = new JLabel("PEERID:");
+        idLabel.setBounds(10, 60, 80, 25);
+        panel.add(idLabel);
+        JTextField idField = new JTextField(20);
+        idField.setBounds(100, 60, 165, 25);
+        panel.add(idField);
+
+        // PORT
+        JLabel portLabel = new JLabel("PORT:");
+        portLabel.setBounds(10, 100, 80, 25);
+        panel.add(portLabel);
+        JTextField portField = new JTextField(20);
+        portField.setBounds(100, 100, 165, 25);
+        panel.add(portField);
+
+        // Register Button
+        JButton registerButton = new JButton("Register");
+        registerButton.setBounds(10, 140, 100, 25);
+        panel.add(registerButton);
+
+        // Action
+        registerButton.addActionListener(e -> {
+            String peerID = idField.getText();
+            int port = Integer.parseInt(portField.getText());
+            Peer peer = new Peer(peerID, port);
+            frame.dispose();
+            try {
+                peer.start();
+            } catch (IOException | InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        /*Scanner userInput = new Scanner(System.in);
         System.out.print("Please provide a peerID: ");
         String peerID = userInput.nextLine();
         System.out.print("Provide the port to use: ");
         String portString = userInput.nextLine();
         int port = Integer.parseInt(portString);
-        System.out.print("Do you want to send a message? (y/n): ");
-        String decision = userInput.nextLine();
-
-        if (decision.equals("n")) {
-            System.out.println("");
-            Peer peer = new Peer(peerID, port);
-            peer.start();
-        } else if (decision.equals("y")) {
-            System.out.print("\nIndicate target host: ");
-            String targetHost = userInput.nextLine();
-            System.out.print("Indicate the target port: ");
-            String targetPortString = userInput.nextLine();
-            int targetPort = Integer.parseInt(targetPortString);
-            System.out.print("Write message to send: ");
-            String message = userInput.nextLine();
-
-            Peer peer = new Peer(peerID, port);
-            peer.start();
-            peer.sendGreeting(targetHost, targetPort, message);
-        } else {
-            System.out.println("Invalid command");
-        }
+        System.out.println("");
+        Peer peer = new Peer(peerID, port);
+        peer.start();
+        userInput.close();*/
     }
 
     // First try of DHT INCOMPLETE and INCORRECT

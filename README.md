@@ -54,3 +54,4 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 - https://docs.oracle.com/javase/7/docs/api/java/security/MessageDigest.html
 - https://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
 - https://www.freecodecamp.org/espanol/news/cadena-de-java-a-int-como-convertir-una-cadena-en-un-numero-entero/
+- https://laurel.datsi.fi.upm.es/_media/docencia/cursos/java/2012/guis_en_java-1pp_2012_.pdf

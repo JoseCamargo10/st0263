@@ -29,7 +29,7 @@ public class PeerServer {
         System.out.println(peerID + " server started on port " + port);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.err.println("Shutting down gRPC server for peer " + peerID);
+            System.err.println("Shutting down gRPC server for " + peerID);
             PeerServer.this.stopServer();
             System.err.println("Server shut down.");
         }));
