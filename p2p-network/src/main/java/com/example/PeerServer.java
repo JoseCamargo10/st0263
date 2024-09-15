@@ -14,18 +14,23 @@ import java.util.function.BiConsumer;
 import com.example.p2pnetwork.P2PServiceProto.LeaveRequest;
 
 import io.grpc.stub.StreamObserver;
+
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
+
 import io.grpc.*;
+import io.netty.handler.codec.http.multipart.FileUpload;
 
 public class PeerServer {
-    private final String peerID;
+    private final int peerID;
     private final int port;
     private Server server;
-    private final static ConcurrentHashMap<Integer, PeerInfo> peers = new ConcurrentHashMap<>();
 
     // Constructor
-    public PeerServer(String peerID, int port) {
+    public PeerServer(int peerID, int port) {
         this.peerID = peerID;
         this.port = port;
     }
@@ -59,8 +64,19 @@ public class PeerServer {
         }
     }
 
-    private static class P2PServiceImpl extends P2PServiceGrpc.P2PServiceImplBase {
+    // Generate file's key
+    public static int generateFileKey(String key) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            byte[] hash = md.digest(key.getBytes());
+            BigInteger hashInt = new BigInteger(1, hash);
+            return hashInt.mod(BigInteger.valueOf(128)).intValue();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    private static class P2PServiceImpl extends P2PServiceGrpc.P2PServiceImplBase {
         @Override
         public void sendGreeting(GreetingRequest request, StreamObserver<GreetingResponse> responseObserver) {
             String message = request.getMessage();
@@ -75,7 +91,7 @@ public class PeerServer {
             responseObserver.onCompleted();
         }
 
-        @Override
+        /*@Override
         public void joinNetwork(JoinRequest request, StreamObserver<JoinResponse> responseObserver) {
             PeerInfo newPeer = request.getNewPeer();
             peers.put(newPeer.getPeerID(), newPeer);
@@ -156,7 +172,7 @@ public class PeerServer {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
 
     }   
 

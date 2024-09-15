@@ -24,25 +24,25 @@ import com.sun.security.ntlm.Client;
 import sun.awt.util.ThreadGroupUtils;
 
 public class Peer {
-    private final String peerID;
+    private final int peerID;
     private final int port;
     private PeerServer server;
     private PeerClient client;
-    private PeerInfo predecessor;
-    private PeerInfo successor;
+    /*private PeerInfo predecessor;
+    private PeerInfo successor;*/
 
-    public Peer(String peerID, int port) {
+    public Peer(int peerID, int port) {
         this.peerID = peerID;
         this.port = port;
         this.server = new PeerServer(peerID, port);
         this.client = new PeerClient(peerID, port);
-        this.predecessor = null;  // Initially, no predecessor
-        this.successor = null;    // Initially, no successor
+        /*this.predecessor = null;  // Initially, no predecessor
+        this.successor = null;*/    // Initially, no successor
     }
 
     
     // Getter and Setter for predecessor
-    public PeerInfo getPredecessor() {
+    /*public PeerInfo getPredecessor() {
         return predecessor;
     }
 
@@ -57,7 +57,7 @@ public class Peer {
 
     public void setSuccessor(PeerInfo successor) {
         this.successor = successor;
-    }
+    }*/
 
 
     // Start server anc client
@@ -80,6 +80,17 @@ public class Peer {
     // Método para enviar un saludo a otro peer
     public void sendGreeting(String targetHost, int targetPort, String message) {
         client.sendGreetingToPeer(targetHost, targetPort, message);
+    }
+
+    public static int generatePeerID(String key) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            byte[] hash = md.digest(key.getBytes());
+            BigInteger hashInt = new BigInteger(1, hash);
+            return hashInt.mod(BigInteger.valueOf(128)).intValue();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -122,7 +133,7 @@ public class Peer {
 
         // Action
         registerButton.addActionListener(e -> {
-            String peerID = idField.getText();
+            int peerID = generatePeerID(idField.getText());
             int port = Integer.parseInt(portField.getText());
             Peer peer = new Peer(peerID, port);
             frame.dispose();
