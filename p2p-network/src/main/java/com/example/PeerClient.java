@@ -61,10 +61,21 @@ public class PeerClient {
         downloadButton.setBounds(10,105,150,25);
         panel.add(downloadButton);
 
+        // Join Network Button
+        JButton joinNetworkButton = new JButton("Join Network");
+        joinNetworkButton.setBounds(350, 60, 150, 25);
+        panel.add(joinNetworkButton);
+
+        joinNetworkButton.addActionListener(e -> {
+            clean(panel);
+            joinNetworkMenu(panel);
+        });
+
         messageButton.addActionListener(e -> {
             clean(panel);
             messageMenu(panel);
         });
+        
     }
 
     // Message Menu
@@ -126,5 +137,64 @@ public class PeerClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void joinNetwork(PeerInfo newPeer) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", /* Server Port */)
+                .usePlaintext()
+                .build();
+
+        P2PServiceGrpc.P2PServiceBlockingStub blockingStub = P2PServiceGrpc.newBlockingStub(channel);
+
+        JoinRequest request = JoinRequest.newBuilder()
+                .setNewPeer(newPeer)
+                .build();
+
+        JoinResponse response = blockingStub.joinNetwork(request);
+
+        // Update local peer's predecessor and successor
+        PeerPosition position = response.getPosition();
+        setPredecessor(position.getPredecessor());
+        setSuccessor(position.getSuccessor());
+
+        try {
+            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    // Join Network Menu
+    private void joinNetworkMenu(JPanel panel) {
+        JLabel addressLabel = new JLabel("Address:");
+        addressLabel.setBounds(10, 20, 80, 25);
+        panel.add(addressLabel);
+        JTextField addressField = new JTextField(20);
+        addressField.setBounds(100, 20, 165, 25);
+        panel.add(addressField);
+
+        JLabel portLabel = new JLabel("Port:");
+        portLabel.setBounds(10, 60, 80, 25);
+        panel.add(portLabel);
+        JTextField portField = new JTextField(20);
+        portField.setBounds(100, 60, 165, 25);
+        panel.add(portField);
+
+        JButton joinButton = new JButton("Join");
+        joinButton.setBounds(10, 100, 100, 25);
+        panel.add(joinButton);
+
+        joinButton.addActionListener(e -> {
+            String address = addressField.getText();
+            int port = Integer.parseInt(portField.getText());
+            PeerInfo newPeer = PeerInfo.newBuilder().setAddress(address).setPort(port).build();
+            joinNetwork(newPeer);
+            clean(panel);
+            mainMenu(panel);
+        });
+
+        panel.revalidate();
+        panel.repaint();
     }
 }

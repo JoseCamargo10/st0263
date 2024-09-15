@@ -28,12 +28,34 @@ public class Peer {
     private final int port;
     private PeerServer server;
     private PeerClient client;
+    private PeerInfo predecessor;
+    private PeerInfo successor;
 
     public Peer(String peerID, int port) {
         this.peerID = peerID;
         this.port = port;
         this.server = new PeerServer(peerID, port);
         this.client = new PeerClient(peerID, port);
+        this.predecessor = null;  // Initially, no predecessor
+        this.successor = null;    // Initially, no successor
+    }
+
+    // Getter and Setter for predecessor
+    public PeerInfo getPredecessor() {
+        return predecessor;
+    }
+
+    public void setPredecessor(PeerInfo predecessor) {
+        this.predecessor = predecessor;
+    }
+
+    // Getter and Setter for successor
+    public PeerInfo getSuccessor() {
+        return successor;
+    }
+
+    public void setSuccessor(PeerInfo successor) {
+        this.successor = successor;
     }
 
     // Start server anc client
