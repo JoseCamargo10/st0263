@@ -40,6 +40,7 @@ public class Peer {
         this.successor = null;    // Initially, no successor
     }
 
+    
     // Getter and Setter for predecessor
     public PeerInfo getPredecessor() {
         return predecessor;
@@ -57,6 +58,7 @@ public class Peer {
     public void setSuccessor(PeerInfo successor) {
         this.successor = successor;
     }
+
 
     // Start server anc client
     public void start() throws IOException, InterruptedException {
@@ -130,17 +132,6 @@ public class Peer {
                 ex.printStackTrace();
             }
         });
-
-        /*Scanner userInput = new Scanner(System.in);
-        System.out.print("Please provide a peerID: ");
-        String peerID = userInput.nextLine();
-        System.out.print("Provide the port to use: ");
-        String portString = userInput.nextLine();
-        int port = Integer.parseInt(portString);
-        System.out.println("");
-        Peer peer = new Peer(peerID, port);
-        peer.start();
-        userInput.close();*/
     }
 
     // First try of DHT INCOMPLETE and INCORRECT

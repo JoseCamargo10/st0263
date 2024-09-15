@@ -5,6 +5,10 @@ import java.awt.Frame;
 import com.example.p2pnetwork.P2PServiceGrpc;
 import com.example.p2pnetwork.P2PServiceProto.GreetingRequest;
 import com.example.p2pnetwork.P2PServiceProto.GreetingResponse;
+import com.example.p2pnetwork.P2PServiceProto.PeerInfo;
+import com.example.p2pnetwork.P2PServiceProto.JoinRequest;
+import com.example.p2pnetwork.P2PServiceProto.JoinResponse;
+import com.example.p2pnetwork.P2PServiceProto.PeerPosition;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -16,10 +20,14 @@ import javax.swing.*;
 public class PeerClient {
     private final String peerID;
     private final int port;
+    private PeerInfo predecessor;
+    private PeerInfo successor;
 
     public PeerClient(String peerID, int port) {
         this.peerID = peerID;
         this.port = port;
+        this.predecessor = null;  
+        this.successor = null;    
     }
 
     // GUI
@@ -63,7 +71,7 @@ public class PeerClient {
 
         // Join Network Button
         JButton joinNetworkButton = new JButton("Join Network");
-        joinNetworkButton.setBounds(350, 60, 150, 25);
+        joinNetworkButton.setBounds(180, 105, 150, 25);
         panel.add(joinNetworkButton);
 
         joinNetworkButton.addActionListener(e -> {
@@ -76,6 +84,40 @@ public class PeerClient {
             messageMenu(panel);
         });
         
+    }
+
+    
+    // Join Network Menu
+    private void joinNetworkMenu(JPanel panel) {
+        JLabel addressLabel = new JLabel("Address:");
+        addressLabel.setBounds(10, 20, 80, 25);
+        panel.add(addressLabel);
+        JTextField addressField = new JTextField(20);
+        addressField.setBounds(100, 20, 165, 25);
+        panel.add(addressField);
+
+        JLabel portLabel = new JLabel("Port:");
+        portLabel.setBounds(10, 60, 80, 25);
+        panel.add(portLabel);
+        JTextField portField = new JTextField(20);
+        portField.setBounds(100, 60, 165, 25);
+        panel.add(portField);
+
+        JButton joinButton = new JButton("Join");
+        joinButton.setBounds(10, 100, 100, 25);
+        panel.add(joinButton);
+
+        joinButton.addActionListener(e -> {
+            String address = addressField.getText();
+            int port = Integer.parseInt(portField.getText());
+            PeerInfo newPeer = PeerInfo.newBuilder().setAddress(address).setPort(port).build();
+            joinNetwork(newPeer);
+            clean(panel);
+            mainMenu(panel);
+        });
+
+        panel.revalidate();
+        panel.repaint();
     }
 
     // Message Menu
@@ -139,9 +181,8 @@ public class PeerClient {
         }
     }
 
-
     public void joinNetwork(PeerInfo newPeer) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", /* Server Port */)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost",port)
                 .usePlaintext()
                 .build();
 
@@ -164,37 +205,22 @@ public class PeerClient {
             e.printStackTrace();
         }
     }
-    
-    // Join Network Menu
-    private void joinNetworkMenu(JPanel panel) {
-        JLabel addressLabel = new JLabel("Address:");
-        addressLabel.setBounds(10, 20, 80, 25);
-        panel.add(addressLabel);
-        JTextField addressField = new JTextField(20);
-        addressField.setBounds(100, 20, 165, 25);
-        panel.add(addressField);
 
-        JLabel portLabel = new JLabel("Port:");
-        portLabel.setBounds(10, 60, 80, 25);
-        panel.add(portLabel);
-        JTextField portField = new JTextField(20);
-        portField.setBounds(100, 60, 165, 25);
-        panel.add(portField);
-
-        JButton joinButton = new JButton("Join");
-        joinButton.setBounds(10, 100, 100, 25);
-        panel.add(joinButton);
-
-        joinButton.addActionListener(e -> {
-            String address = addressField.getText();
-            int port = Integer.parseInt(portField.getText());
-            PeerInfo newPeer = PeerInfo.newBuilder().setAddress(address).setPort(port).build();
-            joinNetwork(newPeer);
-            clean(panel);
-            mainMenu(panel);
-        });
-
-        panel.revalidate();
-        panel.repaint();
+    // Métodos para actualizar el predecesor y sucesor
+    public void setPredecessor(PeerInfo predecessor) {
+        this.predecessor = predecessor;
     }
+
+    public void setSuccessor(PeerInfo successor) {
+        this.successor = successor;
+    }
+
+    public PeerInfo getPredecessor() {
+        return this.predecessor;
+    }
+
+    public PeerInfo getSuccessor() {
+        return this.successor;
+    }
+
 }

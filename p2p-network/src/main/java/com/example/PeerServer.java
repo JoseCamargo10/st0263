@@ -22,7 +22,7 @@ public class PeerServer {
     private final String peerID;
     private final int port;
     private Server server;
-    private final ConcurrentHashMap<Integer, PeerInfo> peers = new ConcurrentHashMap<>();
+    private final static ConcurrentHashMap<Integer, PeerInfo> peers = new ConcurrentHashMap<>();
 
     // Constructor
     public PeerServer(String peerID, int port) {
@@ -60,6 +60,7 @@ public class PeerServer {
     }
 
     private static class P2PServiceImpl extends P2PServiceGrpc.P2PServiceImplBase {
+
         @Override
         public void sendGreeting(GreetingRequest request, StreamObserver<GreetingResponse> responseObserver) {
             String message = request.getMessage();
@@ -73,8 +74,93 @@ public class PeerServer {
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }
+
+        @Override
+        public void joinNetwork(JoinRequest request, StreamObserver<JoinResponse> responseObserver) {
+            PeerInfo newPeer = request.getNewPeer();
+            peers.put(newPeer.getPeerID(), newPeer);
+
+            PeerInfo predecessor = findPredecessor(newPeer);
+            PeerInfo successor = findSuccessor(newPeer);
+
+            if (predecessor != null) {
+                notifyPeer(predecessor, P2PServiceGrpc.P2PServiceBlockingStub::updateSuccessor, newPeer);
+            }
+            if (successor != null) {
+                notifyPeer(successor, P2PServiceGrpc.P2PServiceBlockingStub::updatePredecessor, newPeer);
+            }
+
+            PeerPosition position = PeerPosition.newBuilder()
+                    .setPredecessor(predecessor)
+                    .setSuccessor(successor)
+                    .build();
+
+            JoinResponse response = JoinResponse.newBuilder()
+                    .setPosition(position)
+                    .build();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+
+        @Override
+        public void notifyLeave(LeaveRequest request, StreamObserver<Empty> responseObserver) {
+            PeerInfo leavingPeer = request.getLeavingPeer();
+            peers.remove(leavingPeer.getPeerID());
+
+            PeerInfo predecessor = findPredecessor(leavingPeer);
+            PeerInfo successor = findSuccessor(leavingPeer);
+
+            if (predecessor != null) {
+                notifyPeer(predecessor, P2PServiceGrpc.P2PServiceBlockingStub::updateSuccessor, successor);
+            }
+            if (successor != null) {
+                notifyPeer(successor, P2PServiceGrpc.P2PServiceBlockingStub::updatePredecessor, predecessor);
+            }
+
+            responseObserver.onNext(Empty.newBuilder().build());
+            responseObserver.onCompleted();
+        }
+
+        private PeerInfo findPredecessor(PeerInfo newPeer) {
+            // Logic to find the predecessor of newPeer
+            // For simplicity, assume the predecessor is the peer with the largest ID smaller than newPeer.getPeerID()
+            return peers.values().stream()
+                    .filter(peer -> peer.getPeerID() < newPeer.getPeerID())
+                    .max(Comparator.comparingInt(PeerInfo::getPeerID))
+                    .orElse(null);
+        }
+
+        private PeerInfo findSuccessor(PeerInfo newPeer) {
+            // Logic to find the successor of newPeer
+            // For simplicity, assume the successor is the peer with the smallest ID larger than newPeer.getPeerID()
+            return peers.values().stream()
+                    .filter(peer -> peer.getPeerID() > newPeer.getPeerID())
+                    .min(Comparator.comparingInt(PeerInfo::getPeerID))
+                    .orElse(null);
+        }
+
+        private void notifyPeer(PeerInfo peerInfo, BiConsumer<P2PServiceGrpc.P2PServiceBlockingStub, PeerInfo> method, PeerInfo newPeer) {
+            ManagedChannel channel = ManagedChannelBuilder.forAddress(peerInfo.getAddress(), peerInfo.getPort())
+                    .usePlaintext()
+                    .build();
+
+            P2PServiceGrpc.P2PServiceBlockingStub blockingStub = P2PServiceGrpc.newBlockingStub(channel);
+
+            try {
+                method.accept(blockingStub, newPeer);
+            } finally {
+                try {
+                    channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }   
 
+    /*
     private static class P2PServiceImpl extends P2PServiceGrpc.P2PServiceImplBase {
         private final ConcurrentHashMap<Integer, PeerInfo> peers;
 
@@ -166,5 +252,5 @@ public class PeerServer {
                 }
             }
         }
-    }
+    } */
 }
