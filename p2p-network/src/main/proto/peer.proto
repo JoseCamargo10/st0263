@@ -7,18 +7,7 @@ import "google/protobuf/empty.proto";
 
 service P2PService {
     rpc SendGreeting(GreetingRequest) returns (GreetingResponse);
-
-    // Ask position (predecessor and successor) for a new peer
-    rpc JoinNetwork(JoinRequest) returns (JoinResponse);
-
-    // Notify a peer about its new successor
-    rpc UpdateSuccessor(PeerInfo) returns (google.protobuf.Empty);
-
-    // Notify a peer about its new predecessor
-    rpc UpdatePredecessor(PeerInfo) returns (google.protobuf.Empty);
-
-    // Notify that a peer is leaving the network
-    rpc NotifyLeave(LeaveRequest) returns (google.protobuf.Empty);
+    rpc SendUploadInfo(UploadInfoRequest) returns (UploadInfoResponse);
 }
 
 // Message request to send the greeting
@@ -31,32 +20,11 @@ message GreetingResponse {
   string reply = 1; // Respuesta de confirmación
 }
 
-// Maybe useful for incoming implementation of DHT
-// ---------------------------------------------------------------------------------------
-message PeerInfo {
-    int32 peerID = 1;         // Unique ID for every peer
-    string address = 2;       // IP Direction for peers (localhost in development)
-    int32 port = 3;           // Port which peer uses to listen
-    int32 predecessor = 4;    // Peer behind in the ring
-    int32 successor = 5;      // Follower peer in the ring
-}
-// Message to return peer's predecessor and successor
-message PeerPosition {
-  PeerInfo predecessor = 1; // Predecessor peer info
-  PeerInfo successor = 2; // Successor peer info
+message UploadInfoRequest {
+  int32 key = 1;
+  repeated int32 peers = 2;
 }
 
-// Request to join the network, sending new peer's information
-message JoinRequest {
-  PeerInfo newPeer = 1; // New peer's info
-}
-
-// Response to join the network, returning assigned predecessor and successor
-message JoinResponse {
-  PeerPosition position = 1; // Assigned predecessor and successor
-}
-
-// Message to notify any peer's disconnection
-message LeaveRequest {
-  PeerInfo leavingPeer = 1; // Leaving peer's info
+message UploadInfoResponse {
+  string message = 1;
 }

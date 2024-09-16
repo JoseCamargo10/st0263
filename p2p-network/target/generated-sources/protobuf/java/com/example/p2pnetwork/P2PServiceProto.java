@@ -1238,96 +1238,54 @@ public final class P2PServiceProto {
 
   }
 
-  public interface PeerInfoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:PeerInfo)
+  public interface UploadInfoRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:UploadInfoRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <pre>
-     * Unique ID for every peer
-     * </pre>
-     *
-     * <code>int32 peerID = 1;</code>
-     * @return The peerID.
+     * <code>int32 key = 1;</code>
+     * @return The key.
      */
-    int getPeerID();
+    int getKey();
 
     /**
-     * <pre>
-     * IP Direction for peers (localhost in development)
-     * </pre>
-     *
-     * <code>string address = 2;</code>
-     * @return The address.
+     * <code>repeated int32 peers = 2;</code>
+     * @return A list containing the peers.
      */
-    java.lang.String getAddress();
+    java.util.List<java.lang.Integer> getPeersList();
     /**
-     * <pre>
-     * IP Direction for peers (localhost in development)
-     * </pre>
-     *
-     * <code>string address = 2;</code>
-     * @return The bytes for address.
+     * <code>repeated int32 peers = 2;</code>
+     * @return The count of peers.
      */
-    com.google.protobuf.ByteString
-        getAddressBytes();
-
+    int getPeersCount();
     /**
-     * <pre>
-     * Port which peer uses to listen
-     * </pre>
-     *
-     * <code>int32 port = 3;</code>
-     * @return The port.
+     * <code>repeated int32 peers = 2;</code>
+     * @param index The index of the element to return.
+     * @return The peers at the given index.
      */
-    int getPort();
-
-    /**
-     * <pre>
-     * Peer behind in the ring
-     * </pre>
-     *
-     * <code>int32 predecessor = 4;</code>
-     * @return The predecessor.
-     */
-    int getPredecessor();
-
-    /**
-     * <pre>
-     * Follower peer in the ring
-     * </pre>
-     *
-     * <code>int32 successor = 5;</code>
-     * @return The successor.
-     */
-    int getSuccessor();
+    int getPeers(int index);
   }
   /**
-   * <pre>
-   * Maybe useful for incoming implementation of DHT
-   * ---------------------------------------------------------------------------------------
-   * </pre>
-   *
-   * Protobuf type {@code PeerInfo}
+   * Protobuf type {@code UploadInfoRequest}
    */
-  public static final class PeerInfo extends
+  public static final class UploadInfoRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:PeerInfo)
-      PeerInfoOrBuilder {
+      // @@protoc_insertion_point(message_implements:UploadInfoRequest)
+      UploadInfoRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use PeerInfo.newBuilder() to construct.
-    private PeerInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use UploadInfoRequest.newBuilder() to construct.
+    private UploadInfoRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private PeerInfo() {
-      address_ = "";
+    private UploadInfoRequest() {
+      peers_ = emptyIntList();
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new PeerInfo();
+      return new UploadInfoRequest();
     }
 
     @java.lang.Override
@@ -1335,7 +1293,7 @@ public final class P2PServiceProto {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private PeerInfo(
+    private UploadInfoRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1343,6 +1301,7 @@ public final class P2PServiceProto {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1355,28 +1314,681 @@ public final class P2PServiceProto {
               break;
             case 8: {
 
-              peerID_ = input.readInt32();
+              key_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                peers_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              peers_.addInt(input.readInt32());
               break;
             }
             case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                peers_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                peers_.addInt(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          peers_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.class, com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.Builder.class);
+    }
+
+    public static final int KEY_FIELD_NUMBER = 1;
+    private int key_;
+    /**
+     * <code>int32 key = 1;</code>
+     * @return The key.
+     */
+    @java.lang.Override
+    public int getKey() {
+      return key_;
+    }
+
+    public static final int PEERS_FIELD_NUMBER = 2;
+    private com.google.protobuf.Internal.IntList peers_;
+    /**
+     * <code>repeated int32 peers = 2;</code>
+     * @return A list containing the peers.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+        getPeersList() {
+      return peers_;
+    }
+    /**
+     * <code>repeated int32 peers = 2;</code>
+     * @return The count of peers.
+     */
+    public int getPeersCount() {
+      return peers_.size();
+    }
+    /**
+     * <code>repeated int32 peers = 2;</code>
+     * @param index The index of the element to return.
+     * @return The peers at the given index.
+     */
+    public int getPeers(int index) {
+      return peers_.getInt(index);
+    }
+    private int peersMemoizedSerializedSize = -1;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (key_ != 0) {
+        output.writeInt32(1, key_);
+      }
+      if (getPeersList().size() > 0) {
+        output.writeUInt32NoTag(18);
+        output.writeUInt32NoTag(peersMemoizedSerializedSize);
+      }
+      for (int i = 0; i < peers_.size(); i++) {
+        output.writeInt32NoTag(peers_.getInt(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (key_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, key_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < peers_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(peers_.getInt(i));
+        }
+        size += dataSize;
+        if (!getPeersList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        peersMemoizedSerializedSize = dataSize;
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest)) {
+        return super.equals(obj);
+      }
+      com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest other = (com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest) obj;
+
+      if (getKey()
+          != other.getKey()) return false;
+      if (!getPeersList()
+          .equals(other.getPeersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getKey();
+      if (getPeersCount() > 0) {
+        hash = (37 * hash) + PEERS_FIELD_NUMBER;
+        hash = (53 * hash) + getPeersList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code UploadInfoRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:UploadInfoRequest)
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.class, com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.Builder.class);
+      }
+
+      // Construct using com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        key_ = 0;
+
+        peers_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest getDefaultInstanceForType() {
+        return com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest build() {
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest buildPartial() {
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest result = new com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest(this);
+        int from_bitField0_ = bitField0_;
+        result.key_ = key_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          peers_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.peers_ = peers_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest) {
+          return mergeFrom((com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest other) {
+        if (other == com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.getDefaultInstance()) return this;
+        if (other.getKey() != 0) {
+          setKey(other.getKey());
+        }
+        if (!other.peers_.isEmpty()) {
+          if (peers_.isEmpty()) {
+            peers_ = other.peers_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensurePeersIsMutable();
+            peers_.addAll(other.peers_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int key_ ;
+      /**
+       * <code>int32 key = 1;</code>
+       * @return The key.
+       */
+      @java.lang.Override
+      public int getKey() {
+        return key_;
+      }
+      /**
+       * <code>int32 key = 1;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKey(int value) {
+        
+        key_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 key = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearKey() {
+        
+        key_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList peers_ = emptyIntList();
+      private void ensurePeersIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          peers_ = mutableCopy(peers_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated int32 peers = 2;</code>
+       * @return A list containing the peers.
+       */
+      public java.util.List<java.lang.Integer>
+          getPeersList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(peers_) : peers_;
+      }
+      /**
+       * <code>repeated int32 peers = 2;</code>
+       * @return The count of peers.
+       */
+      public int getPeersCount() {
+        return peers_.size();
+      }
+      /**
+       * <code>repeated int32 peers = 2;</code>
+       * @param index The index of the element to return.
+       * @return The peers at the given index.
+       */
+      public int getPeers(int index) {
+        return peers_.getInt(index);
+      }
+      /**
+       * <code>repeated int32 peers = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The peers to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPeers(
+          int index, int value) {
+        ensurePeersIsMutable();
+        peers_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 peers = 2;</code>
+       * @param value The peers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addPeers(int value) {
+        ensurePeersIsMutable();
+        peers_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 peers = 2;</code>
+       * @param values The peers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllPeers(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensurePeersIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, peers_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 peers = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPeers() {
+        peers_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:UploadInfoRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:UploadInfoRequest)
+    private static final com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest();
+    }
+
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UploadInfoRequest>
+        PARSER = new com.google.protobuf.AbstractParser<UploadInfoRequest>() {
+      @java.lang.Override
+      public UploadInfoRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UploadInfoRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UploadInfoRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UploadInfoRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UploadInfoResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:UploadInfoResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string message = 1;</code>
+     * @return The message.
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>string message = 1;</code>
+     * @return The bytes for message.
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+  }
+  /**
+   * Protobuf type {@code UploadInfoResponse}
+   */
+  public static final class UploadInfoResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:UploadInfoResponse)
+      UploadInfoResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UploadInfoResponse.newBuilder() to construct.
+    private UploadInfoResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UploadInfoResponse() {
+      message_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new UploadInfoResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UploadInfoResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              address_ = s;
-              break;
-            }
-            case 24: {
-
-              port_ = input.readInt32();
-              break;
-            }
-            case 32: {
-
-              predecessor_ = input.readInt32();
-              break;
-            }
-            case 40: {
-
-              successor_ = input.readInt32();
+              message_ = s;
               break;
             }
             default: {
@@ -1400,123 +2012,55 @@ public final class P2PServiceProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerInfo_descriptor;
+      return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerInfo_fieldAccessorTable
+      return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.class, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder.class);
+              com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.class, com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.Builder.class);
     }
 
-    public static final int PEERID_FIELD_NUMBER = 1;
-    private int peerID_;
+    public static final int MESSAGE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object message_;
     /**
-     * <pre>
-     * Unique ID for every peer
-     * </pre>
-     *
-     * <code>int32 peerID = 1;</code>
-     * @return The peerID.
+     * <code>string message = 1;</code>
+     * @return The message.
      */
     @java.lang.Override
-    public int getPeerID() {
-      return peerID_;
-    }
-
-    public static final int ADDRESS_FIELD_NUMBER = 2;
-    private volatile java.lang.Object address_;
-    /**
-     * <pre>
-     * IP Direction for peers (localhost in development)
-     * </pre>
-     *
-     * <code>string address = 2;</code>
-     * @return The address.
-     */
-    @java.lang.Override
-    public java.lang.String getAddress() {
-      java.lang.Object ref = address_;
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        address_ = s;
+        message_ = s;
         return s;
       }
     }
     /**
-     * <pre>
-     * IP Direction for peers (localhost in development)
-     * </pre>
-     *
-     * <code>string address = 2;</code>
-     * @return The bytes for address.
+     * <code>string message = 1;</code>
+     * @return The bytes for message.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getAddressBytes() {
-      java.lang.Object ref = address_;
+        getMessageBytes() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        address_ = b;
+        message_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int PORT_FIELD_NUMBER = 3;
-    private int port_;
-    /**
-     * <pre>
-     * Port which peer uses to listen
-     * </pre>
-     *
-     * <code>int32 port = 3;</code>
-     * @return The port.
-     */
-    @java.lang.Override
-    public int getPort() {
-      return port_;
-    }
-
-    public static final int PREDECESSOR_FIELD_NUMBER = 4;
-    private int predecessor_;
-    /**
-     * <pre>
-     * Peer behind in the ring
-     * </pre>
-     *
-     * <code>int32 predecessor = 4;</code>
-     * @return The predecessor.
-     */
-    @java.lang.Override
-    public int getPredecessor() {
-      return predecessor_;
-    }
-
-    public static final int SUCCESSOR_FIELD_NUMBER = 5;
-    private int successor_;
-    /**
-     * <pre>
-     * Follower peer in the ring
-     * </pre>
-     *
-     * <code>int32 successor = 5;</code>
-     * @return The successor.
-     */
-    @java.lang.Override
-    public int getSuccessor() {
-      return successor_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1531,20 +2075,8 @@ public final class P2PServiceProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (peerID_ != 0) {
-        output.writeInt32(1, peerID_);
-      }
-      if (!getAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, address_);
-      }
-      if (port_ != 0) {
-        output.writeInt32(3, port_);
-      }
-      if (predecessor_ != 0) {
-        output.writeInt32(4, predecessor_);
-      }
-      if (successor_ != 0) {
-        output.writeInt32(5, successor_);
+      if (!getMessageBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
       }
       unknownFields.writeTo(output);
     }
@@ -1555,24 +2087,8 @@ public final class P2PServiceProto {
       if (size != -1) return size;
 
       size = 0;
-      if (peerID_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, peerID_);
-      }
-      if (!getAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, address_);
-      }
-      if (port_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, port_);
-      }
-      if (predecessor_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, predecessor_);
-      }
-      if (successor_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, successor_);
+      if (!getMessageBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1584,21 +2100,13 @@ public final class P2PServiceProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.example.p2pnetwork.P2PServiceProto.PeerInfo)) {
+      if (!(obj instanceof com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse)) {
         return super.equals(obj);
       }
-      com.example.p2pnetwork.P2PServiceProto.PeerInfo other = (com.example.p2pnetwork.P2PServiceProto.PeerInfo) obj;
+      com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse other = (com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse) obj;
 
-      if (getPeerID()
-          != other.getPeerID()) return false;
-      if (!getAddress()
-          .equals(other.getAddress())) return false;
-      if (getPort()
-          != other.getPort()) return false;
-      if (getPredecessor()
-          != other.getPredecessor()) return false;
-      if (getSuccessor()
-          != other.getSuccessor()) return false;
+      if (!getMessage()
+          .equals(other.getMessage())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1610,84 +2118,76 @@ public final class P2PServiceProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PEERID_FIELD_NUMBER;
-      hash = (53 * hash) + getPeerID();
-      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getAddress().hashCode();
-      hash = (37 * hash) + PORT_FIELD_NUMBER;
-      hash = (53 * hash) + getPort();
-      hash = (37 * hash) + PREDECESSOR_FIELD_NUMBER;
-      hash = (53 * hash) + getPredecessor();
-      hash = (37 * hash) + SUCCESSOR_FIELD_NUMBER;
-      hash = (53 * hash) + getSuccessor();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(byte[] data)
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(java.io.InputStream input)
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseDelimitedFrom(java.io.InputStream input)
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseDelimitedFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo parseFrom(
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1700,7 +2200,7 @@ public final class P2PServiceProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.example.p2pnetwork.P2PServiceProto.PeerInfo prototype) {
+    public static Builder newBuilder(com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1716,31 +2216,26 @@ public final class P2PServiceProto {
       return builder;
     }
     /**
-     * <pre>
-     * Maybe useful for incoming implementation of DHT
-     * ---------------------------------------------------------------------------------------
-     * </pre>
-     *
-     * Protobuf type {@code PeerInfo}
+     * Protobuf type {@code UploadInfoResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:PeerInfo)
-        com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:UploadInfoResponse)
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerInfo_descriptor;
+        return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerInfo_fieldAccessorTable
+        return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.example.p2pnetwork.P2PServiceProto.PeerInfo.class, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder.class);
+                com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.class, com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.Builder.class);
       }
 
-      // Construct using com.example.p2pnetwork.P2PServiceProto.PeerInfo.newBuilder()
+      // Construct using com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1758,15 +2253,7 @@ public final class P2PServiceProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        peerID_ = 0;
-
-        address_ = "";
-
-        port_ = 0;
-
-        predecessor_ = 0;
-
-        successor_ = 0;
+        message_ = "";
 
         return this;
       }
@@ -1774,17 +2261,17 @@ public final class P2PServiceProto {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerInfo_descriptor;
+        return com.example.p2pnetwork.P2PServiceProto.internal_static_UploadInfoResponse_descriptor;
       }
 
       @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo getDefaultInstanceForType() {
-        return com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance();
+      public com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse getDefaultInstanceForType() {
+        return com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo build() {
-        com.example.p2pnetwork.P2PServiceProto.PeerInfo result = buildPartial();
+      public com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse build() {
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1792,13 +2279,9 @@ public final class P2PServiceProto {
       }
 
       @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo buildPartial() {
-        com.example.p2pnetwork.P2PServiceProto.PeerInfo result = new com.example.p2pnetwork.P2PServiceProto.PeerInfo(this);
-        result.peerID_ = peerID_;
-        result.address_ = address_;
-        result.port_ = port_;
-        result.predecessor_ = predecessor_;
-        result.successor_ = successor_;
+      public com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse buildPartial() {
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse result = new com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse(this);
+        result.message_ = message_;
         onBuilt();
         return result;
       }
@@ -1837,31 +2320,19 @@ public final class P2PServiceProto {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.example.p2pnetwork.P2PServiceProto.PeerInfo) {
-          return mergeFrom((com.example.p2pnetwork.P2PServiceProto.PeerInfo)other);
+        if (other instanceof com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse) {
+          return mergeFrom((com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.example.p2pnetwork.P2PServiceProto.PeerInfo other) {
-        if (other == com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance()) return this;
-        if (other.getPeerID() != 0) {
-          setPeerID(other.getPeerID());
-        }
-        if (!other.getAddress().isEmpty()) {
-          address_ = other.address_;
+      public Builder mergeFrom(com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse other) {
+        if (other == com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.getDefaultInstance()) return this;
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
           onChanged();
-        }
-        if (other.getPort() != 0) {
-          setPort(other.getPort());
-        }
-        if (other.getPredecessor() != 0) {
-          setPredecessor(other.getPredecessor());
-        }
-        if (other.getSuccessor() != 0) {
-          setSuccessor(other.getSuccessor());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1878,11 +2349,11 @@ public final class P2PServiceProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.example.p2pnetwork.P2PServiceProto.PeerInfo parsedMessage = null;
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.example.p2pnetwork.P2PServiceProto.PeerInfo) e.getUnfinishedMessage();
+          parsedMessage = (com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1892,270 +2363,78 @@ public final class P2PServiceProto {
         return this;
       }
 
-      private int peerID_ ;
+      private java.lang.Object message_ = "";
       /**
-       * <pre>
-       * Unique ID for every peer
-       * </pre>
-       *
-       * <code>int32 peerID = 1;</code>
-       * @return The peerID.
+       * <code>string message = 1;</code>
+       * @return The message.
        */
-      @java.lang.Override
-      public int getPeerID() {
-        return peerID_;
-      }
-      /**
-       * <pre>
-       * Unique ID for every peer
-       * </pre>
-       *
-       * <code>int32 peerID = 1;</code>
-       * @param value The peerID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPeerID(int value) {
-        
-        peerID_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Unique ID for every peer
-       * </pre>
-       *
-       * <code>int32 peerID = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPeerID() {
-        
-        peerID_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object address_ = "";
-      /**
-       * <pre>
-       * IP Direction for peers (localhost in development)
-       * </pre>
-       *
-       * <code>string address = 2;</code>
-       * @return The address.
-       */
-      public java.lang.String getAddress() {
-        java.lang.Object ref = address_;
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          address_ = s;
+          message_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <pre>
-       * IP Direction for peers (localhost in development)
-       * </pre>
-       *
-       * <code>string address = 2;</code>
-       * @return The bytes for address.
+       * <code>string message = 1;</code>
+       * @return The bytes for message.
        */
       public com.google.protobuf.ByteString
-          getAddressBytes() {
-        java.lang.Object ref = address_;
+          getMessageBytes() {
+        java.lang.Object ref = message_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          address_ = b;
+          message_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <pre>
-       * IP Direction for peers (localhost in development)
-       * </pre>
-       *
-       * <code>string address = 2;</code>
-       * @param value The address to set.
+       * <code>string message = 1;</code>
+       * @param value The message to set.
        * @return This builder for chaining.
        */
-      public Builder setAddress(
+      public Builder setMessage(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        address_ = value;
+        message_ = value;
         onChanged();
         return this;
       }
       /**
-       * <pre>
-       * IP Direction for peers (localhost in development)
-       * </pre>
-       *
-       * <code>string address = 2;</code>
+       * <code>string message = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearAddress() {
+      public Builder clearMessage() {
         
-        address_ = getDefaultInstance().getAddress();
+        message_ = getDefaultInstance().getMessage();
         onChanged();
         return this;
       }
       /**
-       * <pre>
-       * IP Direction for peers (localhost in development)
-       * </pre>
-       *
-       * <code>string address = 2;</code>
-       * @param value The bytes for address to set.
+       * <code>string message = 1;</code>
+       * @param value The bytes for message to set.
        * @return This builder for chaining.
        */
-      public Builder setAddressBytes(
+      public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        address_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int port_ ;
-      /**
-       * <pre>
-       * Port which peer uses to listen
-       * </pre>
-       *
-       * <code>int32 port = 3;</code>
-       * @return The port.
-       */
-      @java.lang.Override
-      public int getPort() {
-        return port_;
-      }
-      /**
-       * <pre>
-       * Port which peer uses to listen
-       * </pre>
-       *
-       * <code>int32 port = 3;</code>
-       * @param value The port to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPort(int value) {
-        
-        port_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Port which peer uses to listen
-       * </pre>
-       *
-       * <code>int32 port = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPort() {
-        
-        port_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int predecessor_ ;
-      /**
-       * <pre>
-       * Peer behind in the ring
-       * </pre>
-       *
-       * <code>int32 predecessor = 4;</code>
-       * @return The predecessor.
-       */
-      @java.lang.Override
-      public int getPredecessor() {
-        return predecessor_;
-      }
-      /**
-       * <pre>
-       * Peer behind in the ring
-       * </pre>
-       *
-       * <code>int32 predecessor = 4;</code>
-       * @param value The predecessor to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPredecessor(int value) {
-        
-        predecessor_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Peer behind in the ring
-       * </pre>
-       *
-       * <code>int32 predecessor = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPredecessor() {
-        
-        predecessor_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int successor_ ;
-      /**
-       * <pre>
-       * Follower peer in the ring
-       * </pre>
-       *
-       * <code>int32 successor = 5;</code>
-       * @return The successor.
-       */
-      @java.lang.Override
-      public int getSuccessor() {
-        return successor_;
-      }
-      /**
-       * <pre>
-       * Follower peer in the ring
-       * </pre>
-       *
-       * <code>int32 successor = 5;</code>
-       * @param value The successor to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSuccessor(int value) {
-        
-        successor_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Follower peer in the ring
-       * </pre>
-       *
-       * <code>int32 successor = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSuccessor() {
-        
-        successor_ = 0;
+        message_ = value;
         onChanged();
         return this;
       }
@@ -2172,3060 +2451,41 @@ public final class P2PServiceProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:PeerInfo)
+      // @@protoc_insertion_point(builder_scope:UploadInfoResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:PeerInfo)
-    private static final com.example.p2pnetwork.P2PServiceProto.PeerInfo DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:UploadInfoResponse)
+    private static final com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.example.p2pnetwork.P2PServiceProto.PeerInfo();
+      DEFAULT_INSTANCE = new com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse();
     }
 
-    public static com.example.p2pnetwork.P2PServiceProto.PeerInfo getDefaultInstance() {
+    public static com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<PeerInfo>
-        PARSER = new com.google.protobuf.AbstractParser<PeerInfo>() {
+    private static final com.google.protobuf.Parser<UploadInfoResponse>
+        PARSER = new com.google.protobuf.AbstractParser<UploadInfoResponse>() {
       @java.lang.Override
-      public PeerInfo parsePartialFrom(
+      public UploadInfoResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PeerInfo(input, extensionRegistry);
+        return new UploadInfoResponse(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<PeerInfo> parser() {
+    public static com.google.protobuf.Parser<UploadInfoResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<PeerInfo> getParserForType() {
+    public com.google.protobuf.Parser<UploadInfoResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfo getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface PeerPositionOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:PeerPosition)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * Predecessor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo predecessor = 1;</code>
-     * @return Whether the predecessor field is set.
-     */
-    boolean hasPredecessor();
-    /**
-     * <pre>
-     * Predecessor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo predecessor = 1;</code>
-     * @return The predecessor.
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfo getPredecessor();
-    /**
-     * <pre>
-     * Predecessor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo predecessor = 1;</code>
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getPredecessorOrBuilder();
-
-    /**
-     * <pre>
-     * Successor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo successor = 2;</code>
-     * @return Whether the successor field is set.
-     */
-    boolean hasSuccessor();
-    /**
-     * <pre>
-     * Successor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo successor = 2;</code>
-     * @return The successor.
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfo getSuccessor();
-    /**
-     * <pre>
-     * Successor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo successor = 2;</code>
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getSuccessorOrBuilder();
-  }
-  /**
-   * <pre>
-   * Message to return peer's predecessor and successor
-   * </pre>
-   *
-   * Protobuf type {@code PeerPosition}
-   */
-  public static final class PeerPosition extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:PeerPosition)
-      PeerPositionOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use PeerPosition.newBuilder() to construct.
-    private PeerPosition(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private PeerPosition() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new PeerPosition();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private PeerPosition(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder subBuilder = null;
-              if (predecessor_ != null) {
-                subBuilder = predecessor_.toBuilder();
-              }
-              predecessor_ = input.readMessage(com.example.p2pnetwork.P2PServiceProto.PeerInfo.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(predecessor_);
-                predecessor_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 18: {
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder subBuilder = null;
-              if (successor_ != null) {
-                subBuilder = successor_.toBuilder();
-              }
-              successor_ = input.readMessage(com.example.p2pnetwork.P2PServiceProto.PeerInfo.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(successor_);
-                successor_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerPosition_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerPosition_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.example.p2pnetwork.P2PServiceProto.PeerPosition.class, com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder.class);
-    }
-
-    public static final int PREDECESSOR_FIELD_NUMBER = 1;
-    private com.example.p2pnetwork.P2PServiceProto.PeerInfo predecessor_;
-    /**
-     * <pre>
-     * Predecessor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo predecessor = 1;</code>
-     * @return Whether the predecessor field is set.
-     */
-    @java.lang.Override
-    public boolean hasPredecessor() {
-      return predecessor_ != null;
-    }
-    /**
-     * <pre>
-     * Predecessor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo predecessor = 1;</code>
-     * @return The predecessor.
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfo getPredecessor() {
-      return predecessor_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : predecessor_;
-    }
-    /**
-     * <pre>
-     * Predecessor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo predecessor = 1;</code>
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getPredecessorOrBuilder() {
-      return getPredecessor();
-    }
-
-    public static final int SUCCESSOR_FIELD_NUMBER = 2;
-    private com.example.p2pnetwork.P2PServiceProto.PeerInfo successor_;
-    /**
-     * <pre>
-     * Successor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo successor = 2;</code>
-     * @return Whether the successor field is set.
-     */
-    @java.lang.Override
-    public boolean hasSuccessor() {
-      return successor_ != null;
-    }
-    /**
-     * <pre>
-     * Successor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo successor = 2;</code>
-     * @return The successor.
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfo getSuccessor() {
-      return successor_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : successor_;
-    }
-    /**
-     * <pre>
-     * Successor peer info
-     * </pre>
-     *
-     * <code>.PeerInfo successor = 2;</code>
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getSuccessorOrBuilder() {
-      return getSuccessor();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (predecessor_ != null) {
-        output.writeMessage(1, getPredecessor());
-      }
-      if (successor_ != null) {
-        output.writeMessage(2, getSuccessor());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (predecessor_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getPredecessor());
-      }
-      if (successor_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getSuccessor());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.example.p2pnetwork.P2PServiceProto.PeerPosition)) {
-        return super.equals(obj);
-      }
-      com.example.p2pnetwork.P2PServiceProto.PeerPosition other = (com.example.p2pnetwork.P2PServiceProto.PeerPosition) obj;
-
-      if (hasPredecessor() != other.hasPredecessor()) return false;
-      if (hasPredecessor()) {
-        if (!getPredecessor()
-            .equals(other.getPredecessor())) return false;
-      }
-      if (hasSuccessor() != other.hasSuccessor()) return false;
-      if (hasSuccessor()) {
-        if (!getSuccessor()
-            .equals(other.getSuccessor())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPredecessor()) {
-        hash = (37 * hash) + PREDECESSOR_FIELD_NUMBER;
-        hash = (53 * hash) + getPredecessor().hashCode();
-      }
-      if (hasSuccessor()) {
-        hash = (37 * hash) + SUCCESSOR_FIELD_NUMBER;
-        hash = (53 * hash) + getSuccessor().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.example.p2pnetwork.P2PServiceProto.PeerPosition prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * Message to return peer's predecessor and successor
-     * </pre>
-     *
-     * Protobuf type {@code PeerPosition}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:PeerPosition)
-        com.example.p2pnetwork.P2PServiceProto.PeerPositionOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerPosition_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerPosition_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.example.p2pnetwork.P2PServiceProto.PeerPosition.class, com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder.class);
-      }
-
-      // Construct using com.example.p2pnetwork.P2PServiceProto.PeerPosition.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (predecessorBuilder_ == null) {
-          predecessor_ = null;
-        } else {
-          predecessor_ = null;
-          predecessorBuilder_ = null;
-        }
-        if (successorBuilder_ == null) {
-          successor_ = null;
-        } else {
-          successor_ = null;
-          successorBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_PeerPosition_descriptor;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.PeerPosition getDefaultInstanceForType() {
-        return com.example.p2pnetwork.P2PServiceProto.PeerPosition.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.PeerPosition build() {
-        com.example.p2pnetwork.P2PServiceProto.PeerPosition result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.PeerPosition buildPartial() {
-        com.example.p2pnetwork.P2PServiceProto.PeerPosition result = new com.example.p2pnetwork.P2PServiceProto.PeerPosition(this);
-        if (predecessorBuilder_ == null) {
-          result.predecessor_ = predecessor_;
-        } else {
-          result.predecessor_ = predecessorBuilder_.build();
-        }
-        if (successorBuilder_ == null) {
-          result.successor_ = successor_;
-        } else {
-          result.successor_ = successorBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.example.p2pnetwork.P2PServiceProto.PeerPosition) {
-          return mergeFrom((com.example.p2pnetwork.P2PServiceProto.PeerPosition)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.example.p2pnetwork.P2PServiceProto.PeerPosition other) {
-        if (other == com.example.p2pnetwork.P2PServiceProto.PeerPosition.getDefaultInstance()) return this;
-        if (other.hasPredecessor()) {
-          mergePredecessor(other.getPredecessor());
-        }
-        if (other.hasSuccessor()) {
-          mergeSuccessor(other.getSuccessor());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.example.p2pnetwork.P2PServiceProto.PeerPosition parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.example.p2pnetwork.P2PServiceProto.PeerPosition) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.example.p2pnetwork.P2PServiceProto.PeerInfo predecessor_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> predecessorBuilder_;
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       * @return Whether the predecessor field is set.
-       */
-      public boolean hasPredecessor() {
-        return predecessorBuilder_ != null || predecessor_ != null;
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       * @return The predecessor.
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo getPredecessor() {
-        if (predecessorBuilder_ == null) {
-          return predecessor_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : predecessor_;
-        } else {
-          return predecessorBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       */
-      public Builder setPredecessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (predecessorBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          predecessor_ = value;
-          onChanged();
-        } else {
-          predecessorBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       */
-      public Builder setPredecessor(
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder builderForValue) {
-        if (predecessorBuilder_ == null) {
-          predecessor_ = builderForValue.build();
-          onChanged();
-        } else {
-          predecessorBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       */
-      public Builder mergePredecessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (predecessorBuilder_ == null) {
-          if (predecessor_ != null) {
-            predecessor_ =
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.newBuilder(predecessor_).mergeFrom(value).buildPartial();
-          } else {
-            predecessor_ = value;
-          }
-          onChanged();
-        } else {
-          predecessorBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       */
-      public Builder clearPredecessor() {
-        if (predecessorBuilder_ == null) {
-          predecessor_ = null;
-          onChanged();
-        } else {
-          predecessor_ = null;
-          predecessorBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder getPredecessorBuilder() {
-        
-        onChanged();
-        return getPredecessorFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getPredecessorOrBuilder() {
-        if (predecessorBuilder_ != null) {
-          return predecessorBuilder_.getMessageOrBuilder();
-        } else {
-          return predecessor_ == null ?
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : predecessor_;
-        }
-      }
-      /**
-       * <pre>
-       * Predecessor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo predecessor = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> 
-          getPredecessorFieldBuilder() {
-        if (predecessorBuilder_ == null) {
-          predecessorBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder>(
-                  getPredecessor(),
-                  getParentForChildren(),
-                  isClean());
-          predecessor_ = null;
-        }
-        return predecessorBuilder_;
-      }
-
-      private com.example.p2pnetwork.P2PServiceProto.PeerInfo successor_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> successorBuilder_;
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       * @return Whether the successor field is set.
-       */
-      public boolean hasSuccessor() {
-        return successorBuilder_ != null || successor_ != null;
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       * @return The successor.
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo getSuccessor() {
-        if (successorBuilder_ == null) {
-          return successor_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : successor_;
-        } else {
-          return successorBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       */
-      public Builder setSuccessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (successorBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          successor_ = value;
-          onChanged();
-        } else {
-          successorBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       */
-      public Builder setSuccessor(
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder builderForValue) {
-        if (successorBuilder_ == null) {
-          successor_ = builderForValue.build();
-          onChanged();
-        } else {
-          successorBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       */
-      public Builder mergeSuccessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (successorBuilder_ == null) {
-          if (successor_ != null) {
-            successor_ =
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.newBuilder(successor_).mergeFrom(value).buildPartial();
-          } else {
-            successor_ = value;
-          }
-          onChanged();
-        } else {
-          successorBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       */
-      public Builder clearSuccessor() {
-        if (successorBuilder_ == null) {
-          successor_ = null;
-          onChanged();
-        } else {
-          successor_ = null;
-          successorBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder getSuccessorBuilder() {
-        
-        onChanged();
-        return getSuccessorFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getSuccessorOrBuilder() {
-        if (successorBuilder_ != null) {
-          return successorBuilder_.getMessageOrBuilder();
-        } else {
-          return successor_ == null ?
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : successor_;
-        }
-      }
-      /**
-       * <pre>
-       * Successor peer info
-       * </pre>
-       *
-       * <code>.PeerInfo successor = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> 
-          getSuccessorFieldBuilder() {
-        if (successorBuilder_ == null) {
-          successorBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder>(
-                  getSuccessor(),
-                  getParentForChildren(),
-                  isClean());
-          successor_ = null;
-        }
-        return successorBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:PeerPosition)
-    }
-
-    // @@protoc_insertion_point(class_scope:PeerPosition)
-    private static final com.example.p2pnetwork.P2PServiceProto.PeerPosition DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.example.p2pnetwork.P2PServiceProto.PeerPosition();
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.PeerPosition getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<PeerPosition>
-        PARSER = new com.google.protobuf.AbstractParser<PeerPosition>() {
-      @java.lang.Override
-      public PeerPosition parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PeerPosition(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<PeerPosition> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<PeerPosition> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerPosition getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface JoinRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:JoinRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * New peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo newPeer = 1;</code>
-     * @return Whether the newPeer field is set.
-     */
-    boolean hasNewPeer();
-    /**
-     * <pre>
-     * New peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo newPeer = 1;</code>
-     * @return The newPeer.
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfo getNewPeer();
-    /**
-     * <pre>
-     * New peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo newPeer = 1;</code>
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getNewPeerOrBuilder();
-  }
-  /**
-   * <pre>
-   * Request to join the network, sending new peer's information
-   * </pre>
-   *
-   * Protobuf type {@code JoinRequest}
-   */
-  public static final class JoinRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:JoinRequest)
-      JoinRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use JoinRequest.newBuilder() to construct.
-    private JoinRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private JoinRequest() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new JoinRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private JoinRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder subBuilder = null;
-              if (newPeer_ != null) {
-                subBuilder = newPeer_.toBuilder();
-              }
-              newPeer_ = input.readMessage(com.example.p2pnetwork.P2PServiceProto.PeerInfo.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(newPeer_);
-                newPeer_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.example.p2pnetwork.P2PServiceProto.JoinRequest.class, com.example.p2pnetwork.P2PServiceProto.JoinRequest.Builder.class);
-    }
-
-    public static final int NEWPEER_FIELD_NUMBER = 1;
-    private com.example.p2pnetwork.P2PServiceProto.PeerInfo newPeer_;
-    /**
-     * <pre>
-     * New peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo newPeer = 1;</code>
-     * @return Whether the newPeer field is set.
-     */
-    @java.lang.Override
-    public boolean hasNewPeer() {
-      return newPeer_ != null;
-    }
-    /**
-     * <pre>
-     * New peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo newPeer = 1;</code>
-     * @return The newPeer.
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfo getNewPeer() {
-      return newPeer_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : newPeer_;
-    }
-    /**
-     * <pre>
-     * New peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo newPeer = 1;</code>
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getNewPeerOrBuilder() {
-      return getNewPeer();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (newPeer_ != null) {
-        output.writeMessage(1, getNewPeer());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (newPeer_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getNewPeer());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.example.p2pnetwork.P2PServiceProto.JoinRequest)) {
-        return super.equals(obj);
-      }
-      com.example.p2pnetwork.P2PServiceProto.JoinRequest other = (com.example.p2pnetwork.P2PServiceProto.JoinRequest) obj;
-
-      if (hasNewPeer() != other.hasNewPeer()) return false;
-      if (hasNewPeer()) {
-        if (!getNewPeer()
-            .equals(other.getNewPeer())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasNewPeer()) {
-        hash = (37 * hash) + NEWPEER_FIELD_NUMBER;
-        hash = (53 * hash) + getNewPeer().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.example.p2pnetwork.P2PServiceProto.JoinRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * Request to join the network, sending new peer's information
-     * </pre>
-     *
-     * Protobuf type {@code JoinRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:JoinRequest)
-        com.example.p2pnetwork.P2PServiceProto.JoinRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.example.p2pnetwork.P2PServiceProto.JoinRequest.class, com.example.p2pnetwork.P2PServiceProto.JoinRequest.Builder.class);
-      }
-
-      // Construct using com.example.p2pnetwork.P2PServiceProto.JoinRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (newPeerBuilder_ == null) {
-          newPeer_ = null;
-        } else {
-          newPeer_ = null;
-          newPeerBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.JoinRequest getDefaultInstanceForType() {
-        return com.example.p2pnetwork.P2PServiceProto.JoinRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.JoinRequest build() {
-        com.example.p2pnetwork.P2PServiceProto.JoinRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.JoinRequest buildPartial() {
-        com.example.p2pnetwork.P2PServiceProto.JoinRequest result = new com.example.p2pnetwork.P2PServiceProto.JoinRequest(this);
-        if (newPeerBuilder_ == null) {
-          result.newPeer_ = newPeer_;
-        } else {
-          result.newPeer_ = newPeerBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.example.p2pnetwork.P2PServiceProto.JoinRequest) {
-          return mergeFrom((com.example.p2pnetwork.P2PServiceProto.JoinRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.example.p2pnetwork.P2PServiceProto.JoinRequest other) {
-        if (other == com.example.p2pnetwork.P2PServiceProto.JoinRequest.getDefaultInstance()) return this;
-        if (other.hasNewPeer()) {
-          mergeNewPeer(other.getNewPeer());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.example.p2pnetwork.P2PServiceProto.JoinRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.example.p2pnetwork.P2PServiceProto.JoinRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.example.p2pnetwork.P2PServiceProto.PeerInfo newPeer_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> newPeerBuilder_;
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       * @return Whether the newPeer field is set.
-       */
-      public boolean hasNewPeer() {
-        return newPeerBuilder_ != null || newPeer_ != null;
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       * @return The newPeer.
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo getNewPeer() {
-        if (newPeerBuilder_ == null) {
-          return newPeer_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : newPeer_;
-        } else {
-          return newPeerBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       */
-      public Builder setNewPeer(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (newPeerBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          newPeer_ = value;
-          onChanged();
-        } else {
-          newPeerBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       */
-      public Builder setNewPeer(
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder builderForValue) {
-        if (newPeerBuilder_ == null) {
-          newPeer_ = builderForValue.build();
-          onChanged();
-        } else {
-          newPeerBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       */
-      public Builder mergeNewPeer(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (newPeerBuilder_ == null) {
-          if (newPeer_ != null) {
-            newPeer_ =
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.newBuilder(newPeer_).mergeFrom(value).buildPartial();
-          } else {
-            newPeer_ = value;
-          }
-          onChanged();
-        } else {
-          newPeerBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       */
-      public Builder clearNewPeer() {
-        if (newPeerBuilder_ == null) {
-          newPeer_ = null;
-          onChanged();
-        } else {
-          newPeer_ = null;
-          newPeerBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder getNewPeerBuilder() {
-        
-        onChanged();
-        return getNewPeerFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getNewPeerOrBuilder() {
-        if (newPeerBuilder_ != null) {
-          return newPeerBuilder_.getMessageOrBuilder();
-        } else {
-          return newPeer_ == null ?
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : newPeer_;
-        }
-      }
-      /**
-       * <pre>
-       * New peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo newPeer = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> 
-          getNewPeerFieldBuilder() {
-        if (newPeerBuilder_ == null) {
-          newPeerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder>(
-                  getNewPeer(),
-                  getParentForChildren(),
-                  isClean());
-          newPeer_ = null;
-        }
-        return newPeerBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:JoinRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:JoinRequest)
-    private static final com.example.p2pnetwork.P2PServiceProto.JoinRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.example.p2pnetwork.P2PServiceProto.JoinRequest();
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.JoinRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<JoinRequest>
-        PARSER = new com.google.protobuf.AbstractParser<JoinRequest>() {
-      @java.lang.Override
-      public JoinRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new JoinRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<JoinRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<JoinRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.JoinRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface JoinResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:JoinResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * Assigned predecessor and successor
-     * </pre>
-     *
-     * <code>.PeerPosition position = 1;</code>
-     * @return Whether the position field is set.
-     */
-    boolean hasPosition();
-    /**
-     * <pre>
-     * Assigned predecessor and successor
-     * </pre>
-     *
-     * <code>.PeerPosition position = 1;</code>
-     * @return The position.
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerPosition getPosition();
-    /**
-     * <pre>
-     * Assigned predecessor and successor
-     * </pre>
-     *
-     * <code>.PeerPosition position = 1;</code>
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerPositionOrBuilder getPositionOrBuilder();
-  }
-  /**
-   * <pre>
-   * Response to join the network, returning assigned predecessor and successor
-   * </pre>
-   *
-   * Protobuf type {@code JoinResponse}
-   */
-  public static final class JoinResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:JoinResponse)
-      JoinResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use JoinResponse.newBuilder() to construct.
-    private JoinResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private JoinResponse() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new JoinResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private JoinResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder subBuilder = null;
-              if (position_ != null) {
-                subBuilder = position_.toBuilder();
-              }
-              position_ = input.readMessage(com.example.p2pnetwork.P2PServiceProto.PeerPosition.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(position_);
-                position_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.example.p2pnetwork.P2PServiceProto.JoinResponse.class, com.example.p2pnetwork.P2PServiceProto.JoinResponse.Builder.class);
-    }
-
-    public static final int POSITION_FIELD_NUMBER = 1;
-    private com.example.p2pnetwork.P2PServiceProto.PeerPosition position_;
-    /**
-     * <pre>
-     * Assigned predecessor and successor
-     * </pre>
-     *
-     * <code>.PeerPosition position = 1;</code>
-     * @return Whether the position field is set.
-     */
-    @java.lang.Override
-    public boolean hasPosition() {
-      return position_ != null;
-    }
-    /**
-     * <pre>
-     * Assigned predecessor and successor
-     * </pre>
-     *
-     * <code>.PeerPosition position = 1;</code>
-     * @return The position.
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerPosition getPosition() {
-      return position_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerPosition.getDefaultInstance() : position_;
-    }
-    /**
-     * <pre>
-     * Assigned predecessor and successor
-     * </pre>
-     *
-     * <code>.PeerPosition position = 1;</code>
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerPositionOrBuilder getPositionOrBuilder() {
-      return getPosition();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (position_ != null) {
-        output.writeMessage(1, getPosition());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (position_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getPosition());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.example.p2pnetwork.P2PServiceProto.JoinResponse)) {
-        return super.equals(obj);
-      }
-      com.example.p2pnetwork.P2PServiceProto.JoinResponse other = (com.example.p2pnetwork.P2PServiceProto.JoinResponse) obj;
-
-      if (hasPosition() != other.hasPosition()) return false;
-      if (hasPosition()) {
-        if (!getPosition()
-            .equals(other.getPosition())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPosition()) {
-        hash = (37 * hash) + POSITION_FIELD_NUMBER;
-        hash = (53 * hash) + getPosition().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.example.p2pnetwork.P2PServiceProto.JoinResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * Response to join the network, returning assigned predecessor and successor
-     * </pre>
-     *
-     * Protobuf type {@code JoinResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:JoinResponse)
-        com.example.p2pnetwork.P2PServiceProto.JoinResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.example.p2pnetwork.P2PServiceProto.JoinResponse.class, com.example.p2pnetwork.P2PServiceProto.JoinResponse.Builder.class);
-      }
-
-      // Construct using com.example.p2pnetwork.P2PServiceProto.JoinResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (positionBuilder_ == null) {
-          position_ = null;
-        } else {
-          position_ = null;
-          positionBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_JoinResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.JoinResponse getDefaultInstanceForType() {
-        return com.example.p2pnetwork.P2PServiceProto.JoinResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.JoinResponse build() {
-        com.example.p2pnetwork.P2PServiceProto.JoinResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.JoinResponse buildPartial() {
-        com.example.p2pnetwork.P2PServiceProto.JoinResponse result = new com.example.p2pnetwork.P2PServiceProto.JoinResponse(this);
-        if (positionBuilder_ == null) {
-          result.position_ = position_;
-        } else {
-          result.position_ = positionBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.example.p2pnetwork.P2PServiceProto.JoinResponse) {
-          return mergeFrom((com.example.p2pnetwork.P2PServiceProto.JoinResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.example.p2pnetwork.P2PServiceProto.JoinResponse other) {
-        if (other == com.example.p2pnetwork.P2PServiceProto.JoinResponse.getDefaultInstance()) return this;
-        if (other.hasPosition()) {
-          mergePosition(other.getPosition());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.example.p2pnetwork.P2PServiceProto.JoinResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.example.p2pnetwork.P2PServiceProto.JoinResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.example.p2pnetwork.P2PServiceProto.PeerPosition position_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerPosition, com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder, com.example.p2pnetwork.P2PServiceProto.PeerPositionOrBuilder> positionBuilder_;
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       * @return Whether the position field is set.
-       */
-      public boolean hasPosition() {
-        return positionBuilder_ != null || position_ != null;
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       * @return The position.
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerPosition getPosition() {
-        if (positionBuilder_ == null) {
-          return position_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerPosition.getDefaultInstance() : position_;
-        } else {
-          return positionBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       */
-      public Builder setPosition(com.example.p2pnetwork.P2PServiceProto.PeerPosition value) {
-        if (positionBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          position_ = value;
-          onChanged();
-        } else {
-          positionBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       */
-      public Builder setPosition(
-          com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder builderForValue) {
-        if (positionBuilder_ == null) {
-          position_ = builderForValue.build();
-          onChanged();
-        } else {
-          positionBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       */
-      public Builder mergePosition(com.example.p2pnetwork.P2PServiceProto.PeerPosition value) {
-        if (positionBuilder_ == null) {
-          if (position_ != null) {
-            position_ =
-              com.example.p2pnetwork.P2PServiceProto.PeerPosition.newBuilder(position_).mergeFrom(value).buildPartial();
-          } else {
-            position_ = value;
-          }
-          onChanged();
-        } else {
-          positionBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       */
-      public Builder clearPosition() {
-        if (positionBuilder_ == null) {
-          position_ = null;
-          onChanged();
-        } else {
-          position_ = null;
-          positionBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder getPositionBuilder() {
-        
-        onChanged();
-        return getPositionFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerPositionOrBuilder getPositionOrBuilder() {
-        if (positionBuilder_ != null) {
-          return positionBuilder_.getMessageOrBuilder();
-        } else {
-          return position_ == null ?
-              com.example.p2pnetwork.P2PServiceProto.PeerPosition.getDefaultInstance() : position_;
-        }
-      }
-      /**
-       * <pre>
-       * Assigned predecessor and successor
-       * </pre>
-       *
-       * <code>.PeerPosition position = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerPosition, com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder, com.example.p2pnetwork.P2PServiceProto.PeerPositionOrBuilder> 
-          getPositionFieldBuilder() {
-        if (positionBuilder_ == null) {
-          positionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.example.p2pnetwork.P2PServiceProto.PeerPosition, com.example.p2pnetwork.P2PServiceProto.PeerPosition.Builder, com.example.p2pnetwork.P2PServiceProto.PeerPositionOrBuilder>(
-                  getPosition(),
-                  getParentForChildren(),
-                  isClean());
-          position_ = null;
-        }
-        return positionBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:JoinResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:JoinResponse)
-    private static final com.example.p2pnetwork.P2PServiceProto.JoinResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.example.p2pnetwork.P2PServiceProto.JoinResponse();
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.JoinResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<JoinResponse>
-        PARSER = new com.google.protobuf.AbstractParser<JoinResponse>() {
-      @java.lang.Override
-      public JoinResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new JoinResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<JoinResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<JoinResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.JoinResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface LeaveRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:LeaveRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * Leaving peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo leavingPeer = 1;</code>
-     * @return Whether the leavingPeer field is set.
-     */
-    boolean hasLeavingPeer();
-    /**
-     * <pre>
-     * Leaving peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo leavingPeer = 1;</code>
-     * @return The leavingPeer.
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfo getLeavingPeer();
-    /**
-     * <pre>
-     * Leaving peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo leavingPeer = 1;</code>
-     */
-    com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getLeavingPeerOrBuilder();
-  }
-  /**
-   * <pre>
-   * Message to notify any peer's disconnection
-   * </pre>
-   *
-   * Protobuf type {@code LeaveRequest}
-   */
-  public static final class LeaveRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:LeaveRequest)
-      LeaveRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use LeaveRequest.newBuilder() to construct.
-    private LeaveRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private LeaveRequest() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new LeaveRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private LeaveRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder subBuilder = null;
-              if (leavingPeer_ != null) {
-                subBuilder = leavingPeer_.toBuilder();
-              }
-              leavingPeer_ = input.readMessage(com.example.p2pnetwork.P2PServiceProto.PeerInfo.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(leavingPeer_);
-                leavingPeer_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_LeaveRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.p2pnetwork.P2PServiceProto.internal_static_LeaveRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.example.p2pnetwork.P2PServiceProto.LeaveRequest.class, com.example.p2pnetwork.P2PServiceProto.LeaveRequest.Builder.class);
-    }
-
-    public static final int LEAVINGPEER_FIELD_NUMBER = 1;
-    private com.example.p2pnetwork.P2PServiceProto.PeerInfo leavingPeer_;
-    /**
-     * <pre>
-     * Leaving peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo leavingPeer = 1;</code>
-     * @return Whether the leavingPeer field is set.
-     */
-    @java.lang.Override
-    public boolean hasLeavingPeer() {
-      return leavingPeer_ != null;
-    }
-    /**
-     * <pre>
-     * Leaving peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo leavingPeer = 1;</code>
-     * @return The leavingPeer.
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfo getLeavingPeer() {
-      return leavingPeer_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : leavingPeer_;
-    }
-    /**
-     * <pre>
-     * Leaving peer's info
-     * </pre>
-     *
-     * <code>.PeerInfo leavingPeer = 1;</code>
-     */
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getLeavingPeerOrBuilder() {
-      return getLeavingPeer();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (leavingPeer_ != null) {
-        output.writeMessage(1, getLeavingPeer());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (leavingPeer_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getLeavingPeer());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.example.p2pnetwork.P2PServiceProto.LeaveRequest)) {
-        return super.equals(obj);
-      }
-      com.example.p2pnetwork.P2PServiceProto.LeaveRequest other = (com.example.p2pnetwork.P2PServiceProto.LeaveRequest) obj;
-
-      if (hasLeavingPeer() != other.hasLeavingPeer()) return false;
-      if (hasLeavingPeer()) {
-        if (!getLeavingPeer()
-            .equals(other.getLeavingPeer())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasLeavingPeer()) {
-        hash = (37 * hash) + LEAVINGPEER_FIELD_NUMBER;
-        hash = (53 * hash) + getLeavingPeer().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.example.p2pnetwork.P2PServiceProto.LeaveRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * Message to notify any peer's disconnection
-     * </pre>
-     *
-     * Protobuf type {@code LeaveRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:LeaveRequest)
-        com.example.p2pnetwork.P2PServiceProto.LeaveRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_LeaveRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_LeaveRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.example.p2pnetwork.P2PServiceProto.LeaveRequest.class, com.example.p2pnetwork.P2PServiceProto.LeaveRequest.Builder.class);
-      }
-
-      // Construct using com.example.p2pnetwork.P2PServiceProto.LeaveRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (leavingPeerBuilder_ == null) {
-          leavingPeer_ = null;
-        } else {
-          leavingPeer_ = null;
-          leavingPeerBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.example.p2pnetwork.P2PServiceProto.internal_static_LeaveRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.LeaveRequest getDefaultInstanceForType() {
-        return com.example.p2pnetwork.P2PServiceProto.LeaveRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.LeaveRequest build() {
-        com.example.p2pnetwork.P2PServiceProto.LeaveRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.example.p2pnetwork.P2PServiceProto.LeaveRequest buildPartial() {
-        com.example.p2pnetwork.P2PServiceProto.LeaveRequest result = new com.example.p2pnetwork.P2PServiceProto.LeaveRequest(this);
-        if (leavingPeerBuilder_ == null) {
-          result.leavingPeer_ = leavingPeer_;
-        } else {
-          result.leavingPeer_ = leavingPeerBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.example.p2pnetwork.P2PServiceProto.LeaveRequest) {
-          return mergeFrom((com.example.p2pnetwork.P2PServiceProto.LeaveRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.example.p2pnetwork.P2PServiceProto.LeaveRequest other) {
-        if (other == com.example.p2pnetwork.P2PServiceProto.LeaveRequest.getDefaultInstance()) return this;
-        if (other.hasLeavingPeer()) {
-          mergeLeavingPeer(other.getLeavingPeer());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.example.p2pnetwork.P2PServiceProto.LeaveRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.example.p2pnetwork.P2PServiceProto.LeaveRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.example.p2pnetwork.P2PServiceProto.PeerInfo leavingPeer_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> leavingPeerBuilder_;
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       * @return Whether the leavingPeer field is set.
-       */
-      public boolean hasLeavingPeer() {
-        return leavingPeerBuilder_ != null || leavingPeer_ != null;
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       * @return The leavingPeer.
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo getLeavingPeer() {
-        if (leavingPeerBuilder_ == null) {
-          return leavingPeer_ == null ? com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : leavingPeer_;
-        } else {
-          return leavingPeerBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       */
-      public Builder setLeavingPeer(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (leavingPeerBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          leavingPeer_ = value;
-          onChanged();
-        } else {
-          leavingPeerBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       */
-      public Builder setLeavingPeer(
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder builderForValue) {
-        if (leavingPeerBuilder_ == null) {
-          leavingPeer_ = builderForValue.build();
-          onChanged();
-        } else {
-          leavingPeerBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       */
-      public Builder mergeLeavingPeer(com.example.p2pnetwork.P2PServiceProto.PeerInfo value) {
-        if (leavingPeerBuilder_ == null) {
-          if (leavingPeer_ != null) {
-            leavingPeer_ =
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.newBuilder(leavingPeer_).mergeFrom(value).buildPartial();
-          } else {
-            leavingPeer_ = value;
-          }
-          onChanged();
-        } else {
-          leavingPeerBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       */
-      public Builder clearLeavingPeer() {
-        if (leavingPeerBuilder_ == null) {
-          leavingPeer_ = null;
-          onChanged();
-        } else {
-          leavingPeer_ = null;
-          leavingPeerBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder getLeavingPeerBuilder() {
-        
-        onChanged();
-        return getLeavingPeerFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       */
-      public com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder getLeavingPeerOrBuilder() {
-        if (leavingPeerBuilder_ != null) {
-          return leavingPeerBuilder_.getMessageOrBuilder();
-        } else {
-          return leavingPeer_ == null ?
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance() : leavingPeer_;
-        }
-      }
-      /**
-       * <pre>
-       * Leaving peer's info
-       * </pre>
-       *
-       * <code>.PeerInfo leavingPeer = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder> 
-          getLeavingPeerFieldBuilder() {
-        if (leavingPeerBuilder_ == null) {
-          leavingPeerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.example.p2pnetwork.P2PServiceProto.PeerInfo.Builder, com.example.p2pnetwork.P2PServiceProto.PeerInfoOrBuilder>(
-                  getLeavingPeer(),
-                  getParentForChildren(),
-                  isClean());
-          leavingPeer_ = null;
-        }
-        return leavingPeerBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:LeaveRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:LeaveRequest)
-    private static final com.example.p2pnetwork.P2PServiceProto.LeaveRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.example.p2pnetwork.P2PServiceProto.LeaveRequest();
-    }
-
-    public static com.example.p2pnetwork.P2PServiceProto.LeaveRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<LeaveRequest>
-        PARSER = new com.google.protobuf.AbstractParser<LeaveRequest>() {
-      @java.lang.Override
-      public LeaveRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new LeaveRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<LeaveRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<LeaveRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.example.p2pnetwork.P2PServiceProto.LeaveRequest getDefaultInstanceForType() {
+    public com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5242,30 +2502,15 @@ public final class P2PServiceProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_GreetingResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_PeerInfo_descriptor;
+    internal_static_UploadInfoRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_PeerInfo_fieldAccessorTable;
+      internal_static_UploadInfoRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_PeerPosition_descriptor;
+    internal_static_UploadInfoResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_PeerPosition_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_JoinRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_JoinRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_JoinResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_JoinResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_LeaveRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_LeaveRequest_fieldAccessorTable;
+      internal_static_UploadInfoResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5277,23 +2522,14 @@ public final class P2PServiceProto {
     java.lang.String[] descriptorData = {
       "\n\npeer.proto\032\033google/protobuf/empty.prot" +
       "o\"\"\n\017GreetingRequest\022\017\n\007message\030\001 \001(\t\"!\n" +
-      "\020GreetingResponse\022\r\n\005reply\030\001 \001(\t\"a\n\010Peer" +
-      "Info\022\016\n\006peerID\030\001 \001(\005\022\017\n\007address\030\002 \001(\t\022\014\n" +
-      "\004port\030\003 \001(\005\022\023\n\013predecessor\030\004 \001(\005\022\021\n\tsucc" +
-      "essor\030\005 \001(\005\"L\n\014PeerPosition\022\036\n\013predecess" +
-      "or\030\001 \001(\0132\t.PeerInfo\022\034\n\tsuccessor\030\002 \001(\0132\t" +
-      ".PeerInfo\")\n\013JoinRequest\022\032\n\007newPeer\030\001 \001(" +
-      "\0132\t.PeerInfo\"/\n\014JoinResponse\022\037\n\010position" +
-      "\030\001 \001(\0132\r.PeerPosition\".\n\014LeaveRequest\022\036\n" +
-      "\013leavingPeer\030\001 \001(\0132\t.PeerInfo2\221\002\n\nP2PSer" +
-      "vice\0223\n\014SendGreeting\022\020.GreetingRequest\032\021" +
-      ".GreetingResponse\022*\n\013JoinNetwork\022\014.JoinR" +
-      "equest\032\r.JoinResponse\0224\n\017UpdateSuccessor" +
-      "\022\t.PeerInfo\032\026.google.protobuf.Empty\0226\n\021U" +
-      "pdatePredecessor\022\t.PeerInfo\032\026.google.pro" +
-      "tobuf.Empty\0224\n\013NotifyLeave\022\r.LeaveReques" +
-      "t\032\026.google.protobuf.EmptyB)\n\026com.example" +
-      ".p2pnetworkB\017P2PServiceProtob\006proto3"
+      "\020GreetingResponse\022\r\n\005reply\030\001 \001(\t\"/\n\021Uplo" +
+      "adInfoRequest\022\013\n\003key\030\001 \001(\005\022\r\n\005peers\030\002 \003(" +
+      "\005\"%\n\022UploadInfoResponse\022\017\n\007message\030\001 \001(\t" +
+      "2|\n\nP2PService\0223\n\014SendGreeting\022\020.Greetin" +
+      "gRequest\032\021.GreetingResponse\0229\n\016SendUploa" +
+      "dInfo\022\022.UploadInfoRequest\032\023.UploadInfoRe" +
+      "sponseB)\n\026com.example.p2pnetworkB\017P2PSer" +
+      "viceProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5312,36 +2548,18 @@ public final class P2PServiceProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GreetingResponse_descriptor,
         new java.lang.String[] { "Reply", });
-    internal_static_PeerInfo_descriptor =
+    internal_static_UploadInfoRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_PeerInfo_fieldAccessorTable = new
+    internal_static_UploadInfoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_PeerInfo_descriptor,
-        new java.lang.String[] { "PeerID", "Address", "Port", "Predecessor", "Successor", });
-    internal_static_PeerPosition_descriptor =
+        internal_static_UploadInfoRequest_descriptor,
+        new java.lang.String[] { "Key", "Peers", });
+    internal_static_UploadInfoResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_PeerPosition_fieldAccessorTable = new
+    internal_static_UploadInfoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_PeerPosition_descriptor,
-        new java.lang.String[] { "Predecessor", "Successor", });
-    internal_static_JoinRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_JoinRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_JoinRequest_descriptor,
-        new java.lang.String[] { "NewPeer", });
-    internal_static_JoinResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_JoinResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_JoinResponse_descriptor,
-        new java.lang.String[] { "Position", });
-    internal_static_LeaveRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_LeaveRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_LeaveRequest_descriptor,
-        new java.lang.String[] { "LeavingPeer", });
+        internal_static_UploadInfoResponse_descriptor,
+        new java.lang.String[] { "Message", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 

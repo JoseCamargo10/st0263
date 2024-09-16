@@ -46,128 +46,35 @@ public final class P2PServiceGrpc {
     return getSendGreetingMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.JoinRequest,
-      com.example.p2pnetwork.P2PServiceProto.JoinResponse> getJoinNetworkMethod;
+  private static volatile io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest,
+      com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse> getSendUploadInfoMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "JoinNetwork",
-      requestType = com.example.p2pnetwork.P2PServiceProto.JoinRequest.class,
-      responseType = com.example.p2pnetwork.P2PServiceProto.JoinResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "SendUploadInfo",
+      requestType = com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.class,
+      responseType = com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.JoinRequest,
-      com.example.p2pnetwork.P2PServiceProto.JoinResponse> getJoinNetworkMethod() {
-    io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.JoinRequest, com.example.p2pnetwork.P2PServiceProto.JoinResponse> getJoinNetworkMethod;
-    if ((getJoinNetworkMethod = P2PServiceGrpc.getJoinNetworkMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest,
+      com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse> getSendUploadInfoMethod() {
+    io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest, com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse> getSendUploadInfoMethod;
+    if ((getSendUploadInfoMethod = P2PServiceGrpc.getSendUploadInfoMethod) == null) {
       synchronized (P2PServiceGrpc.class) {
-        if ((getJoinNetworkMethod = P2PServiceGrpc.getJoinNetworkMethod) == null) {
-          P2PServiceGrpc.getJoinNetworkMethod = getJoinNetworkMethod =
-              io.grpc.MethodDescriptor.<com.example.p2pnetwork.P2PServiceProto.JoinRequest, com.example.p2pnetwork.P2PServiceProto.JoinResponse>newBuilder()
+        if ((getSendUploadInfoMethod = P2PServiceGrpc.getSendUploadInfoMethod) == null) {
+          P2PServiceGrpc.getSendUploadInfoMethod = getSendUploadInfoMethod =
+              io.grpc.MethodDescriptor.<com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest, com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "JoinNetwork"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SendUploadInfo"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.example.p2pnetwork.P2PServiceProto.JoinRequest.getDefaultInstance()))
+                  com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.example.p2pnetwork.P2PServiceProto.JoinResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new P2PServiceMethodDescriptorSupplier("JoinNetwork"))
+                  com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new P2PServiceMethodDescriptorSupplier("SendUploadInfo"))
               .build();
         }
       }
     }
-    return getJoinNetworkMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.PeerInfo,
-      com.google.protobuf.Empty> getUpdateSuccessorMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "UpdateSuccessor",
-      requestType = com.example.p2pnetwork.P2PServiceProto.PeerInfo.class,
-      responseType = com.google.protobuf.Empty.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.PeerInfo,
-      com.google.protobuf.Empty> getUpdateSuccessorMethod() {
-    io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.google.protobuf.Empty> getUpdateSuccessorMethod;
-    if ((getUpdateSuccessorMethod = P2PServiceGrpc.getUpdateSuccessorMethod) == null) {
-      synchronized (P2PServiceGrpc.class) {
-        if ((getUpdateSuccessorMethod = P2PServiceGrpc.getUpdateSuccessorMethod) == null) {
-          P2PServiceGrpc.getUpdateSuccessorMethod = getUpdateSuccessorMethod =
-              io.grpc.MethodDescriptor.<com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.google.protobuf.Empty>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateSuccessor"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.google.protobuf.Empty.getDefaultInstance()))
-              .setSchemaDescriptor(new P2PServiceMethodDescriptorSupplier("UpdateSuccessor"))
-              .build();
-        }
-      }
-    }
-    return getUpdateSuccessorMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.PeerInfo,
-      com.google.protobuf.Empty> getUpdatePredecessorMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "UpdatePredecessor",
-      requestType = com.example.p2pnetwork.P2PServiceProto.PeerInfo.class,
-      responseType = com.google.protobuf.Empty.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.PeerInfo,
-      com.google.protobuf.Empty> getUpdatePredecessorMethod() {
-    io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.google.protobuf.Empty> getUpdatePredecessorMethod;
-    if ((getUpdatePredecessorMethod = P2PServiceGrpc.getUpdatePredecessorMethod) == null) {
-      synchronized (P2PServiceGrpc.class) {
-        if ((getUpdatePredecessorMethod = P2PServiceGrpc.getUpdatePredecessorMethod) == null) {
-          P2PServiceGrpc.getUpdatePredecessorMethod = getUpdatePredecessorMethod =
-              io.grpc.MethodDescriptor.<com.example.p2pnetwork.P2PServiceProto.PeerInfo, com.google.protobuf.Empty>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdatePredecessor"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.example.p2pnetwork.P2PServiceProto.PeerInfo.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.google.protobuf.Empty.getDefaultInstance()))
-              .setSchemaDescriptor(new P2PServiceMethodDescriptorSupplier("UpdatePredecessor"))
-              .build();
-        }
-      }
-    }
-    return getUpdatePredecessorMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.LeaveRequest,
-      com.google.protobuf.Empty> getNotifyLeaveMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "NotifyLeave",
-      requestType = com.example.p2pnetwork.P2PServiceProto.LeaveRequest.class,
-      responseType = com.google.protobuf.Empty.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.LeaveRequest,
-      com.google.protobuf.Empty> getNotifyLeaveMethod() {
-    io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.LeaveRequest, com.google.protobuf.Empty> getNotifyLeaveMethod;
-    if ((getNotifyLeaveMethod = P2PServiceGrpc.getNotifyLeaveMethod) == null) {
-      synchronized (P2PServiceGrpc.class) {
-        if ((getNotifyLeaveMethod = P2PServiceGrpc.getNotifyLeaveMethod) == null) {
-          P2PServiceGrpc.getNotifyLeaveMethod = getNotifyLeaveMethod =
-              io.grpc.MethodDescriptor.<com.example.p2pnetwork.P2PServiceProto.LeaveRequest, com.google.protobuf.Empty>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "NotifyLeave"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.example.p2pnetwork.P2PServiceProto.LeaveRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.google.protobuf.Empty.getDefaultInstance()))
-              .setSchemaDescriptor(new P2PServiceMethodDescriptorSupplier("NotifyLeave"))
-              .build();
-        }
-      }
-    }
-    return getNotifyLeaveMethod;
+    return getSendUploadInfoMethod;
   }
 
   /**
@@ -226,43 +133,10 @@ public final class P2PServiceGrpc {
     }
 
     /**
-     * <pre>
-     * Ask position (predecessor and successor) for a new peer
-     * </pre>
      */
-    public void joinNetwork(com.example.p2pnetwork.P2PServiceProto.JoinRequest request,
-        io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.JoinResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getJoinNetworkMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new successor
-     * </pre>
-     */
-    public void updateSuccessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateSuccessorMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new predecessor
-     * </pre>
-     */
-    public void updatePredecessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdatePredecessorMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Notify that a peer is leaving the network
-     * </pre>
-     */
-    public void notifyLeave(com.example.p2pnetwork.P2PServiceProto.LeaveRequest request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getNotifyLeaveMethod(), responseObserver);
+    public void sendUploadInfo(com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest request,
+        io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSendUploadInfoMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -275,33 +149,12 @@ public final class P2PServiceGrpc {
                 com.example.p2pnetwork.P2PServiceProto.GreetingResponse>(
                   this, METHODID_SEND_GREETING)))
           .addMethod(
-            getJoinNetworkMethod(),
+            getSendUploadInfoMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                com.example.p2pnetwork.P2PServiceProto.JoinRequest,
-                com.example.p2pnetwork.P2PServiceProto.JoinResponse>(
-                  this, METHODID_JOIN_NETWORK)))
-          .addMethod(
-            getUpdateSuccessorMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.example.p2pnetwork.P2PServiceProto.PeerInfo,
-                com.google.protobuf.Empty>(
-                  this, METHODID_UPDATE_SUCCESSOR)))
-          .addMethod(
-            getUpdatePredecessorMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.example.p2pnetwork.P2PServiceProto.PeerInfo,
-                com.google.protobuf.Empty>(
-                  this, METHODID_UPDATE_PREDECESSOR)))
-          .addMethod(
-            getNotifyLeaveMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.example.p2pnetwork.P2PServiceProto.LeaveRequest,
-                com.google.protobuf.Empty>(
-                  this, METHODID_NOTIFY_LEAVE)))
+                com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest,
+                com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse>(
+                  this, METHODID_SEND_UPLOAD_INFO)))
           .build();
     }
   }
@@ -329,47 +182,11 @@ public final class P2PServiceGrpc {
     }
 
     /**
-     * <pre>
-     * Ask position (predecessor and successor) for a new peer
-     * </pre>
      */
-    public void joinNetwork(com.example.p2pnetwork.P2PServiceProto.JoinRequest request,
-        io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.JoinResponse> responseObserver) {
+    public void sendUploadInfo(com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest request,
+        io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getJoinNetworkMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new successor
-     * </pre>
-     */
-    public void updateSuccessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getUpdateSuccessorMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new predecessor
-     * </pre>
-     */
-    public void updatePredecessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getUpdatePredecessorMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Notify that a peer is leaving the network
-     * </pre>
-     */
-    public void notifyLeave(com.example.p2pnetwork.P2PServiceProto.LeaveRequest request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getNotifyLeaveMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getSendUploadInfoMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -395,43 +212,10 @@ public final class P2PServiceGrpc {
     }
 
     /**
-     * <pre>
-     * Ask position (predecessor and successor) for a new peer
-     * </pre>
      */
-    public com.example.p2pnetwork.P2PServiceProto.JoinResponse joinNetwork(com.example.p2pnetwork.P2PServiceProto.JoinRequest request) {
+    public com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse sendUploadInfo(com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getJoinNetworkMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new successor
-     * </pre>
-     */
-    public com.google.protobuf.Empty updateSuccessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getUpdateSuccessorMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new predecessor
-     * </pre>
-     */
-    public com.google.protobuf.Empty updatePredecessor(com.example.p2pnetwork.P2PServiceProto.PeerInfo request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getUpdatePredecessorMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Notify that a peer is leaving the network
-     * </pre>
-     */
-    public com.google.protobuf.Empty notifyLeave(com.example.p2pnetwork.P2PServiceProto.LeaveRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getNotifyLeaveMethod(), getCallOptions(), request);
+          getChannel(), getSendUploadInfoMethod(), getCallOptions(), request);
     }
   }
 
@@ -458,55 +242,16 @@ public final class P2PServiceGrpc {
     }
 
     /**
-     * <pre>
-     * Ask position (predecessor and successor) for a new peer
-     * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.example.p2pnetwork.P2PServiceProto.JoinResponse> joinNetwork(
-        com.example.p2pnetwork.P2PServiceProto.JoinRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse> sendUploadInfo(
+        com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getJoinNetworkMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new successor
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> updateSuccessor(
-        com.example.p2pnetwork.P2PServiceProto.PeerInfo request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getUpdateSuccessorMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * Notify a peer about its new predecessor
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> updatePredecessor(
-        com.example.p2pnetwork.P2PServiceProto.PeerInfo request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getUpdatePredecessorMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * Notify that a peer is leaving the network
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> notifyLeave(
-        com.example.p2pnetwork.P2PServiceProto.LeaveRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getNotifyLeaveMethod(), getCallOptions()), request);
+          getChannel().newCall(getSendUploadInfoMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_SEND_GREETING = 0;
-  private static final int METHODID_JOIN_NETWORK = 1;
-  private static final int METHODID_UPDATE_SUCCESSOR = 2;
-  private static final int METHODID_UPDATE_PREDECESSOR = 3;
-  private static final int METHODID_NOTIFY_LEAVE = 4;
+  private static final int METHODID_SEND_UPLOAD_INFO = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -529,21 +274,9 @@ public final class P2PServiceGrpc {
           serviceImpl.sendGreeting((com.example.p2pnetwork.P2PServiceProto.GreetingRequest) request,
               (io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.GreetingResponse>) responseObserver);
           break;
-        case METHODID_JOIN_NETWORK:
-          serviceImpl.joinNetwork((com.example.p2pnetwork.P2PServiceProto.JoinRequest) request,
-              (io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.JoinResponse>) responseObserver);
-          break;
-        case METHODID_UPDATE_SUCCESSOR:
-          serviceImpl.updateSuccessor((com.example.p2pnetwork.P2PServiceProto.PeerInfo) request,
-              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
-          break;
-        case METHODID_UPDATE_PREDECESSOR:
-          serviceImpl.updatePredecessor((com.example.p2pnetwork.P2PServiceProto.PeerInfo) request,
-              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
-          break;
-        case METHODID_NOTIFY_LEAVE:
-          serviceImpl.notifyLeave((com.example.p2pnetwork.P2PServiceProto.LeaveRequest) request,
-              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+        case METHODID_SEND_UPLOAD_INFO:
+          serviceImpl.sendUploadInfo((com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest) request,
+              (io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -607,10 +340,7 @@ public final class P2PServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new P2PServiceFileDescriptorSupplier())
               .addMethod(getSendGreetingMethod())
-              .addMethod(getJoinNetworkMethod())
-              .addMethod(getUpdateSuccessorMethod())
-              .addMethod(getUpdatePredecessorMethod())
-              .addMethod(getNotifyLeaveMethod())
+              .addMethod(getSendUploadInfoMethod())
               .build();
         }
       }

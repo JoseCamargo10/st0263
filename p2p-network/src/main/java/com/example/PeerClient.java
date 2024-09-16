@@ -10,17 +10,21 @@ import java.util.Arrays;
 import com.example.p2pnetwork.P2PServiceGrpc;
 import com.example.p2pnetwork.P2PServiceProto.GreetingRequest;
 import com.example.p2pnetwork.P2PServiceProto.GreetingResponse;
-import com.example.p2pnetwork.P2PServiceProto.PeerInfo;
-import com.example.p2pnetwork.P2PServiceProto.JoinRequest;
-import com.example.p2pnetwork.P2PServiceProto.JoinResponse;
-import com.example.p2pnetwork.P2PServiceProto.PeerPosition;
+import com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest;
+import com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -29,14 +33,10 @@ public class PeerClient {
     private final int peerID;
     private final int port;
     private final Map<Integer, List<Integer>> hashTable = new HashMap<>();
-    /*private PeerInfo predecessor;
-    private PeerInfo successor;*/
 
     public PeerClient(int peerID, int port) {
         this.peerID = peerID;
-        this.port = port;
-        /*this.predecessor = null;  
-        this.successor = null;*/  
+        this.port = port; 
     }
 
     // Generate file's key
@@ -100,16 +100,7 @@ public class PeerClient {
         downloadButton.addActionListener(e -> {
             clean(panel);
             downloadFileMenu(panel);
-        });
-
-        // Join Network Button
-        JButton joinNetworkButton = new JButton("Join Network");
-        joinNetworkButton.setBounds(180, 105, 150, 25);
-        panel.add(joinNetworkButton);
-        joinNetworkButton.addActionListener(e -> {
-            clean(panel);
-            joinNetworkMenu(panel);
-        });    
+        });  
     }
 
     // Download File Menu
@@ -168,43 +159,11 @@ public class PeerClient {
             }
 
             hashTable.put(key, peers);
+            uploadFile(key, peers, port);
             System.out.println(hashTable);
             clean(panel);
             mainMenu(panel);
         });
-    }
-    
-    // Join Network Menu
-    private void joinNetworkMenu(JPanel panel) {
-        JLabel addressLabel = new JLabel("Address:");
-        addressLabel.setBounds(10, 20, 80, 25);
-        panel.add(addressLabel);
-        JTextField addressField = new JTextField(20);
-        addressField.setBounds(100, 20, 165, 25);
-        panel.add(addressField);
-
-        JLabel portLabel = new JLabel("Port:");
-        portLabel.setBounds(10, 60, 80, 25);
-        panel.add(portLabel);
-        JTextField portField = new JTextField(20);
-        portField.setBounds(100, 60, 165, 25);
-        panel.add(portField);
-
-        JButton joinButton = new JButton("Join");
-        joinButton.setBounds(10, 100, 100, 25);
-        panel.add(joinButton);
-
-        joinButton.addActionListener(e -> {
-            String address = addressField.getText();
-            int port = Integer.parseInt(portField.getText());
-            PeerInfo newPeer = PeerInfo.newBuilder().setAddress(address).setPort(port).build();
-            //joinNetwork(newPeer);
-            clean(panel);
-            mainMenu(panel);
-        });
-
-        panel.revalidate();
-        panel.repaint();
     }
 
     // Message Menu
@@ -268,46 +227,47 @@ public class PeerClient {
         }
     }
 
-    /*public void joinNetwork(PeerInfo newPeer) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost",port)
-                .usePlaintext()
-                .build();
-
-        P2PServiceGrpc.P2PServiceBlockingStub blockingStub = P2PServiceGrpc.newBlockingStub(channel);
-
-        JoinRequest request = JoinRequest.newBuilder()
-                .setNewPeer(newPeer)
-                .build();
-
-        JoinResponse response = blockingStub.joinNetwork(request);
-
-        // Update local peer's predecessor and successor
-        PeerPosition position = response.getPosition();
-        setPredecessor(position.getPredecessor());
-        setSuccessor(position.getSuccessor());
+    // Method to upload a file
+    public void uploadFile(int key, List<Integer> peers, int port) {
+        ExecutorService executor = Executors.newFixedThreadPool(12);  // Threads for connections
 
         try {
-            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            for (int i = 50051; i < 50062; i++) {
+                if (i != port) {
+                    final int lambda_i = i;
+                    Callable<Void> task = () -> {
+                        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", lambda_i)
+                                .usePlaintext()
+                                .build();
+
+                        P2PServiceGrpc.P2PServiceBlockingStub blockingStub = P2PServiceGrpc.newBlockingStub(channel);
+
+                        UploadInfoRequest request = UploadInfoRequest.newBuilder().setKey(key).addAllPeers(peers).build();
+
+                        try {
+                            UploadInfoResponse response = blockingStub.sendUploadInfo(request);
+                            System.out.println("Peer says: " + response);
+                        } catch (StatusRuntimeException e) {
+                            System.err.println("RPC failed on port " + lambda_i + ": " + e.getStatus());
+                        } finally {
+                            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+                        }
+                        return null;
+                    };
+    
+                    executor.submit(task);
+                }
+            }
+        } finally {
+            executor.shutdown();
+            try {
+                if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executor.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
         }
     }
-
-    // Métodos para actualizar el predecesor y sucesor
-    public void setPredecessor(PeerInfo predecessor) {
-        this.predecessor = predecessor;
-    }
-
-    public void setSuccessor(PeerInfo successor) {
-        this.successor = successor;
-    }
-
-    public PeerInfo getPredecessor() {
-        return this.predecessor;
-    }
-
-    public PeerInfo getSuccessor() {
-        return this.successor;
-    }*/
-
 }
