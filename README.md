@@ -44,8 +44,11 @@ Tabla Hash
 ![alt text](image-1.png)
 
 1.Peer ID: Identificador único del peer en el anillo de la DHT, generado mediante SHA-1. Este valor indica la posición del peer en el anillo hash.
+
 2.Sucesor: El peer que sigue inmediatamente al actual en el anillo. Este peer será responsable de las claves hash que no puedan ser resueltas por el peer actual. Cada peer debe conocer a su sucesor para mantener la consistencia en la red y asegurar que los archivos siempre estén accesibles.
+
 3.Predecesor: El peer que está inmediatamente antes del peer actual en el anillo. Esto es relevante para asegurarse de que la red pueda “auto-repararse” si un peer abandona la red. 
+
 4.Finger Table (k Entradas): Esta tabla contiene referencias a otros peers que están más adelante en el anillo, distribuidos exponencialmente a partir del nodo actual. Esto permite que la búsqueda sea eficiente, ya que se pueden saltar grandes secciones del anillo.
 •Cada entrada en la finger table sigue la fórmula:
 NodeID + 2^i mod (tamaño del anillo), donde i varía de 0 a (m-1) para un anillo de tamaño 2^m.
