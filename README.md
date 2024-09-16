@@ -63,6 +63,7 @@ En el caso de la fórmula NodeID + 2^i mod (tamaño del anillo) en Chord:
 El uso de mod en Chord asegura que los valores resultantes de los saltos (NodeID + 2^i) se mantengan dentro del tamaño del anillo. Como el anillo es cíclico, una vez que llegas al valor máximo de posiciones (tamaño del anillo), vuelves a empezar desde cero.
 
 •Ejemplo en un Anillo Pequeño:
+
 ![alt text](image-2.png)
 
 5.Data Items (Key Hash): Esta columna almacena los archivos que el peer es responsable de mantener. Los archivos están identificados por el valor hash de su clave (por ejemplo, el nombre del archivo), y se almacenan en el peer cuyo ID es mayor o igual al hash del archivo.
@@ -101,17 +102,17 @@ Este flujo describe cómo los peers distribuyen y mantienen la DHT en la red. Si
 Decisión: Utilizar tablas finger (finger tables) para mejorar la eficiencia de búsqueda:
 Criterio: En redes P2P grandes, la búsqueda secuencial de un archivo puede ser muy lenta. Las finger tables permiten a los peers saltar a lo largo del anillo, logrando que las búsquedas sean más rápidas, reduciendo la latencia de las búsquedas a log(N) en una red de N peers.
 Justificación: Aunque podríamos optar por una búsqueda lineal o centralizada, las finger tables son la opción óptima en términos de rendimiento y escalabilidad. Permiten que cada peer tenga una referencia a otros peers distantes en el anillo, lo que acelera las búsquedas y la resolución de solicitudes.
-Descripción del flujo:
-•Almacenamiento de un archivo:
-    1.Un peer recibe una solicitud de almacenar un archivo.
-    2.El peer calcula el hash de la clave del archivo.
-    3.Si el peer no es responsable del archivo (según la DHT), consulta su finger table para redirigir la solicitud al peer responsable.
-    4.El peer que recibe la solicitud de almacenamiento, y almacena el archivo en su porción de la DHT.
 
-•Búsqueda de un archivo:
-    1.Un peer recibe una solicitud para obtener un archivo.
-    2.El peer calcula el hash de la clave del archivo.
-    3.Si el peer no es responsable de la clave, utiliza su finger table para reenviar la solicitud al peer adecuado.
+Descripción del flujo:
+oAlmacenamiento de un archivo:
+1.Un peer recibe una solicitud de almacenar un archivo.
+2.El peer calcula el hash de la clave del archivo.
+3.Si el peer no es responsable del archivo (según la DHT), consulta su finger table para redirigir la solicitud al peer responsable.
+4.El peer que recibe la solicitud de almacenamiento, y almacena el archivo en su porción de la DHT.
+oBúsqueda de un archivo:
+1.Un peer recibe una solicitud para obtener un archivo.
+2.El peer calcula el hash de la clave del archivo.
+3.Si el peer no es responsable de la clave, utiliza su finger table para reenviar la solicitud al peer adecuado.
 
 Criterio para elegir finger tables en vez de una tabla completa de referencias:
 •Escalabilidad: Mantener referencias a todos los peers de la red es ineficiente a gran escala. En cambio, las finger tables permiten un número reducido de referencias (log(N)), mejorando la eficiencia de la búsqueda sin sobrecargar a los peers con información innecesaria.
