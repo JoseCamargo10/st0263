@@ -32,7 +32,7 @@ import javax.swing.*;
 public class PeerClient {
     private final int peerID;
     private final int port;
-    private final Map<Integer, List<Integer>> hashTable = new HashMap<>();
+    private static final Map<Integer, List<Integer>> hashTable = new HashMap<>();
 
     public PeerClient(int peerID, int port) {
         this.peerID = peerID;
@@ -116,10 +116,17 @@ public class PeerClient {
         searchButton.setBounds(10, 60, 100, 25);
         panel.add(searchButton);
 
+        JButton returnButton = new JButton("Return");
+        returnButton.setBounds(10, 100, 100, 25);
+        panel.add(returnButton);
+        returnButton.addActionListener(e -> {
+            clean(panel);
+            mainMenu(panel);
+        });
+
         JLabel resultLabel = new JLabel("");
         resultLabel.setBounds(120, 60, 300, 25);
         panel.add(resultLabel);
-
         searchButton.addActionListener(e -> {
             String fileNameText = fileField.getText();
             int key = generateFileKey(fileNameText);
@@ -148,7 +155,6 @@ public class PeerClient {
         JButton uploadButton = new JButton("Upload");
         uploadButton.setBounds(10, 60, 100, 25);
         panel.add(uploadButton);
-
         uploadButton.addActionListener(e -> {
             String fileNameText = fileField.getText();
             int key = generateFileKey(fileNameText);
@@ -161,6 +167,14 @@ public class PeerClient {
             hashTable.put(key, peers);
             uploadFile(key, peers, port);
             System.out.println(hashTable);
+            clean(panel);
+            mainMenu(panel);
+        });
+
+        JButton returnButton = new JButton("Return");
+        returnButton.setBounds(10, 100, 100, 25);
+        panel.add(returnButton);
+        returnButton.addActionListener(e -> {
             clean(panel);
             mainMenu(panel);
         });
@@ -227,7 +241,20 @@ public class PeerClient {
         }
     }
 
-    // Method to upload a file
+    public static void updatePeerInfo(int key, List<Integer> peers) {
+        if (hashTable.containsKey(key)) {
+            List<Integer> existingPeers = hashTable.get(key);
+            for (Integer peer : peers) {
+                if (!existingPeers.contains(peer)) {
+                    existingPeers.add(peer);  // Añadir solo peers nuevos
+                }
+            }
+        } else {
+            hashTable.put(key, new ArrayList<>(peers));
+        }
+    }
+
+    // Method to upload a file and notify other peers
     public void uploadFile(int key, List<Integer> peers, int port) {
         ExecutorService executor = Executors.newFixedThreadPool(12);  // Threads for connections
 
@@ -269,5 +296,9 @@ public class PeerClient {
                 Thread.currentThread().interrupt();
             }
         }
+    }
+
+    public static Map<Integer, List<Integer>> getPeerInfo() {
+        return hashTable;
     }
 }

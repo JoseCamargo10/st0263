@@ -74,7 +74,7 @@ public class PeerServer {
         }
     }
 
-    public static class P2PServiceImpl extends P2PServiceGrpc.P2PServiceImplBase {
+    private static class P2PServiceImpl extends P2PServiceGrpc.P2PServiceImplBase {
         @Override
         public void sendGreeting(GreetingRequest request, StreamObserver<GreetingResponse> responseObserver) {
             String message = request.getMessage();
@@ -93,6 +93,8 @@ public class PeerServer {
         public void sendUploadInfo(UploadInfoRequest request, StreamObserver<UploadInfoResponse> responseObserver) {
             int key = request.getKey();
             List<Integer> peers = request.getPeersList();
+
+            PeerClient.updatePeerInfo(key, peers);
 
             System.out.println("File: " + key + " | in peers: " + peers);
 
