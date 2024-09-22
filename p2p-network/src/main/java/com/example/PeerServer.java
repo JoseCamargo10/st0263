@@ -45,7 +45,7 @@ public class PeerServer {
     // Start the server to accept connections
     public void startServer() throws IOException {
         server = ServerBuilder.forPort(port)
-                .addService(new P2PServiceImpl()) // Añadir el servicio gRPC
+                .addService(new P2PServiceImpl())
                 .build()
                 .start();
         System.out.println(peerID + " server started on port " + port);
@@ -72,9 +72,9 @@ public class PeerServer {
         }
     }
 
+    // Send other peers a notification about a disconnection and update the hashtable
     private void notifyPeersAboutDisconnection() {
-        ExecutorService executor = Executors.newFixedThreadPool(12);
-        
+        ExecutorService executor = Executors.newFixedThreadPool(12); 
         try {
             for (int i = 50051; i < 50062; i++) {
                 if (i != port) {
@@ -100,7 +100,6 @@ public class PeerServer {
                         }
                         return null;
                     };
-    
                     executor.submit(task);
                 }
             }
@@ -145,6 +144,7 @@ public class PeerServer {
             responseObserver.onCompleted();
         }
 
+        // Info about a new file uploaded on the network
         @Override
         public void sendUploadInfo(UploadInfoRequest request, StreamObserver<UploadInfoResponse> responseObserver) {
             int key = request.getKey();
@@ -159,6 +159,7 @@ public class PeerServer {
             responseObserver.onCompleted();
         }
 
+        // Message to request hashtable
         @Override
         public void getHashTable(Empty request, StreamObserver<HashTableResponse> responseObserver) {
             HashTableResponse.Builder responseBuilder = HashTableResponse.newBuilder();
@@ -175,6 +176,7 @@ public class PeerServer {
             responseObserver.onCompleted();
         }
 
+        // Message of disconnection
         @Override
         public void notifyDisconnection(DisconnectRequest request, StreamObserver<DisconnectResponse> responseObserver) {
             int disconnectedPeerID = request.getPeerID();

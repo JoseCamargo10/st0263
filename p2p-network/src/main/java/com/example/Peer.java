@@ -24,13 +24,13 @@ public class Peer {
     private final PeerServer server;
     private final PeerClient client;
 
+    // Constructor
     public Peer(int peerID, int port) {
         this.peerID = peerID;
         this.port = port;
         this.server = new PeerServer(peerID, port);
         this.client = new PeerClient(peerID, port);
     }
-
 
     // Start server anc client
     public void start() throws IOException, InterruptedException {
@@ -49,11 +49,12 @@ public class Peer {
         }).start();
     }
 
-    // Método para enviar un saludo a otro peer
+    // Method to send greeting to other peer
     public void sendGreeting(String targetHost, int targetPort, String message) {
         client.sendGreetingToPeer(targetHost, targetPort, message);
     }
 
+    // ID generator
     public static int generatePeerID(String key) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");

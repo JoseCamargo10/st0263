@@ -39,6 +39,7 @@ public class PeerClient {
     private final int port;
     private static final Map<Integer, List<Integer>> hashTable = new HashMap<>();
 
+    // Constructor
     public PeerClient(int peerID, int port) {
         this.peerID = peerID;
         this.port = port;
@@ -59,7 +60,7 @@ public class PeerClient {
     // GUI
     public void userInterface(int peerID, int port) {
         if (port != 50051) {
-            requestHashTableFromPeer("localhost", 50051);  // Solicita la tabla hash
+            requestHashTableFromPeer("localhost", 50051);  // Request the hash table
             System.out.println("HashTable synced with peer at port: " + 50051);
         }
         // New frame
@@ -133,6 +134,11 @@ public class PeerClient {
             mainMenu(panel);
         });
 
+        JButton downloadButton = new JButton("Download");
+        downloadButton.setBounds(10, 140, 100, 25);
+        panel.add(downloadButton);
+        downloadButton.setVisible(false);
+
         JLabel resultLabel = new JLabel("");
         resultLabel.setBounds(120, 60, 300, 25);
         panel.add(resultLabel);
@@ -140,15 +146,13 @@ public class PeerClient {
             String fileNameText = fileField.getText();
             int key = generateFileKey(fileNameText);
 
-            // Busca el archivo en la tabla hash
+            // Search the file on hashtable
             List<Integer> ports = hashTable.get(key);
 
-            // Muestra el resultado
+            // Show the result
             if (ports != null && !ports.isEmpty()) {
                 resultLabel.setText("File found at peers: " + ports.toString());
-                JButton downloadButton = new JButton("Download");
-                downloadButton.setBounds(10, 140, 100, 25);
-                panel.add(downloadButton);
+                downloadButton.setVisible(true);
                 downloadButton.addActionListener(ec -> {
                     List<Integer> peers = hashTable.getOrDefault(key, new ArrayList<>());
                     if (!peers.contains(peerID)) {
@@ -162,6 +166,7 @@ public class PeerClient {
                     mainMenu(panel);
                 });
             } else {
+                downloadButton.setVisible(false);
                 resultLabel.setText("File not found.");
             }
         });
@@ -188,8 +193,8 @@ public class PeerClient {
                 peers.add(peerID);
             }
 
-            hashTable.put(key, peers);
-            uploadFile(key, peers, port);
+            hashTable.put(key, peers);  // Put the file on peer's hashtable
+            uploadFile(key, peers, port);   // Share the hashtable with other peers
             System.out.println(hashTable);
             clean(panel);
             mainMenu(panel);
@@ -265,6 +270,7 @@ public class PeerClient {
         }
     }
 
+    // To receive from other peer the new hashtable and update it
     public static void updatePeerInfo(int key, List<Integer> peers) {
         if (hashTable.containsKey(key)) {
             List<Integer> existingPeers = hashTable.get(key);
@@ -326,6 +332,7 @@ public class PeerClient {
         return hashTable;
     }
 
+    // To upload the hashtable for a new peer (to request the files posted before the creation of the peer)
     public void requestHashTableFromPeer(String targetHost, int targetPort) {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(targetHost, targetPort)
                 .usePlaintext()
@@ -340,7 +347,7 @@ public class PeerClient {
         for (HashTableEntry entry : response.getEntriesList()) {
             int key = entry.getKey();
             List<Integer> peers = entry.getPeersList();
-            updatePeerInfo(key, peers);  // Usa el método que ya tienes para actualizar la tabla
+            updatePeerInfo(key, peers);
         }
 
         try {
@@ -350,6 +357,7 @@ public class PeerClient {
         }
     }
 
+    // Peer disconnection
     public static void removePeer(int peerID) {
         for (Map.Entry<Integer, List<Integer>> entry : hashTable.entrySet()) {
             List<Integer> peers = entry.getValue();
