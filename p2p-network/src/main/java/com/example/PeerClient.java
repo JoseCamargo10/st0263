@@ -12,6 +12,9 @@ import com.example.p2pnetwork.P2PServiceProto.GreetingRequest;
 import com.example.p2pnetwork.P2PServiceProto.GreetingResponse;
 import com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest;
 import com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse;
+import com.example.p2pnetwork.P2PServiceProto.HashTableEntry;
+import com.example.p2pnetwork.P2PServiceProto.HashTableResponse;
+import com.example.p2pnetwork.P2PServiceProto.Empty;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -30,13 +33,14 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class PeerClient {
+
     private final int peerID;
     private final int port;
     private static final Map<Integer, List<Integer>> hashTable = new HashMap<>();
 
     public PeerClient(int peerID, int port) {
         this.peerID = peerID;
-        this.port = port; 
+        this.port = port;
     }
 
     // Generate file's key
@@ -52,10 +56,14 @@ public class PeerClient {
     }
 
     // GUI
-    public void userInterface (int peerID, int port) {
+    public void userInterface(int peerID, int port) {
+        if (port != 50051) {
+            requestHashTableFromPeer("localhost", 50051);  // Solicita la tabla hash
+            System.out.println("HashTable synced with peer at port: " + 50051);
+        }
         // New frame
         JFrame frame = new JFrame("P2P Network | Peer ID: " + peerID + " | Port: " + port);
-        frame.setSize(1000,500);
+        frame.setSize(1000, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create a panel to contain the components
@@ -86,7 +94,7 @@ public class PeerClient {
 
         // Upload Button
         JButton uploadButton = new JButton("Upload File");
-        uploadButton.setBounds(180,60,150,25);
+        uploadButton.setBounds(180, 60, 150, 25);
         panel.add(uploadButton);
         uploadButton.addActionListener(e -> {
             clean(panel);
@@ -95,12 +103,12 @@ public class PeerClient {
 
         // Download Button
         JButton downloadButton = new JButton("Download File");
-        downloadButton.setBounds(10,105,150,25);
+        downloadButton.setBounds(10, 105, 150, 25);
         panel.add(downloadButton);
         downloadButton.addActionListener(e -> {
             clean(panel);
             downloadFileMenu(panel);
-        });  
+        });
     }
 
     // Download File Menu
@@ -130,13 +138,28 @@ public class PeerClient {
         searchButton.addActionListener(e -> {
             String fileNameText = fileField.getText();
             int key = generateFileKey(fileNameText);
-            
+
             // Busca el archivo en la tabla hash
             List<Integer> ports = hashTable.get(key);
-            
+
             // Muestra el resultado
             if (ports != null && !ports.isEmpty()) {
                 resultLabel.setText("File found at peers: " + ports.toString());
+                JButton downloadButton = new JButton("Download");
+                downloadButton.setBounds(10, 140, 100, 25);
+                panel.add(downloadButton);
+                downloadButton.addActionListener(ec -> {
+                    List<Integer> peers = hashTable.getOrDefault(key, new ArrayList<>());
+                    if (!peers.contains(peerID)) {
+                        peers.add(peerID);
+                    }
+
+                    hashTable.put(key, peers);
+                    uploadFile(key, peers, port);
+                    System.out.println(hashTable);
+                    clean(panel);
+                    mainMenu(panel);
+                });
             } else {
                 resultLabel.setText("File not found.");
             }
@@ -246,7 +269,7 @@ public class PeerClient {
             List<Integer> existingPeers = hashTable.get(key);
             for (Integer peer : peers) {
                 if (!existingPeers.contains(peer)) {
-                    existingPeers.add(peer);  // Añadir solo peers nuevos
+                    existingPeers.add(peer);  // Add only new peers
                 }
             }
         } else {
@@ -281,7 +304,7 @@ public class PeerClient {
                         }
                         return null;
                     };
-    
+
                     executor.submit(task);
                 }
             }
@@ -300,5 +323,29 @@ public class PeerClient {
 
     public static Map<Integer, List<Integer>> getPeerInfo() {
         return hashTable;
+    }
+
+    public void requestHashTableFromPeer(String targetHost, int targetPort) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(targetHost, targetPort)
+                .usePlaintext()
+                .build();
+
+        P2PServiceGrpc.P2PServiceBlockingStub blockingStub = P2PServiceGrpc.newBlockingStub(channel);
+
+        // Request hashtable
+        HashTableResponse response = blockingStub.getHashTable(Empty.newBuilder().build());
+
+        // Updates local hashtable
+        for (HashTableEntry entry : response.getEntriesList()) {
+            int key = entry.getKey();
+            List<Integer> peers = entry.getPeersList();
+            updatePeerInfo(key, peers);  // Usa el método que ya tienes para actualizar la tabla
+        }
+
+        try {
+            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

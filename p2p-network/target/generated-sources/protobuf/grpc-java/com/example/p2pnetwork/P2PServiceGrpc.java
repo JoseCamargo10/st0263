@@ -77,6 +77,37 @@ public final class P2PServiceGrpc {
     return getSendUploadInfoMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.Empty,
+      com.example.p2pnetwork.P2PServiceProto.HashTableResponse> getGetHashTableMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getHashTable",
+      requestType = com.example.p2pnetwork.P2PServiceProto.Empty.class,
+      responseType = com.example.p2pnetwork.P2PServiceProto.HashTableResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.Empty,
+      com.example.p2pnetwork.P2PServiceProto.HashTableResponse> getGetHashTableMethod() {
+    io.grpc.MethodDescriptor<com.example.p2pnetwork.P2PServiceProto.Empty, com.example.p2pnetwork.P2PServiceProto.HashTableResponse> getGetHashTableMethod;
+    if ((getGetHashTableMethod = P2PServiceGrpc.getGetHashTableMethod) == null) {
+      synchronized (P2PServiceGrpc.class) {
+        if ((getGetHashTableMethod = P2PServiceGrpc.getGetHashTableMethod) == null) {
+          P2PServiceGrpc.getGetHashTableMethod = getGetHashTableMethod =
+              io.grpc.MethodDescriptor.<com.example.p2pnetwork.P2PServiceProto.Empty, com.example.p2pnetwork.P2PServiceProto.HashTableResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getHashTable"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.p2pnetwork.P2PServiceProto.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.p2pnetwork.P2PServiceProto.HashTableResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new P2PServiceMethodDescriptorSupplier("getHashTable"))
+              .build();
+        }
+      }
+    }
+    return getGetHashTableMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -139,6 +170,13 @@ public final class P2PServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSendUploadInfoMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getHashTable(com.example.p2pnetwork.P2PServiceProto.Empty request,
+        io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.HashTableResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetHashTableMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -155,6 +193,13 @@ public final class P2PServiceGrpc {
                 com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest,
                 com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse>(
                   this, METHODID_SEND_UPLOAD_INFO)))
+          .addMethod(
+            getGetHashTableMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.example.p2pnetwork.P2PServiceProto.Empty,
+                com.example.p2pnetwork.P2PServiceProto.HashTableResponse>(
+                  this, METHODID_GET_HASH_TABLE)))
           .build();
     }
   }
@@ -188,6 +233,14 @@ public final class P2PServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSendUploadInfoMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getHashTable(com.example.p2pnetwork.P2PServiceProto.Empty request,
+        io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.HashTableResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetHashTableMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -216,6 +269,13 @@ public final class P2PServiceGrpc {
     public com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse sendUploadInfo(com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSendUploadInfoMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.example.p2pnetwork.P2PServiceProto.HashTableResponse getHashTable(com.example.p2pnetwork.P2PServiceProto.Empty request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetHashTableMethod(), getCallOptions(), request);
     }
   }
 
@@ -248,10 +308,19 @@ public final class P2PServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSendUploadInfoMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.p2pnetwork.P2PServiceProto.HashTableResponse> getHashTable(
+        com.example.p2pnetwork.P2PServiceProto.Empty request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetHashTableMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_SEND_GREETING = 0;
   private static final int METHODID_SEND_UPLOAD_INFO = 1;
+  private static final int METHODID_GET_HASH_TABLE = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -277,6 +346,10 @@ public final class P2PServiceGrpc {
         case METHODID_SEND_UPLOAD_INFO:
           serviceImpl.sendUploadInfo((com.example.p2pnetwork.P2PServiceProto.UploadInfoRequest) request,
               (io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse>) responseObserver);
+          break;
+        case METHODID_GET_HASH_TABLE:
+          serviceImpl.getHashTable((com.example.p2pnetwork.P2PServiceProto.Empty) request,
+              (io.grpc.stub.StreamObserver<com.example.p2pnetwork.P2PServiceProto.HashTableResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -341,6 +414,7 @@ public final class P2PServiceGrpc {
               .setSchemaDescriptor(new P2PServiceFileDescriptorSupplier())
               .addMethod(getSendGreetingMethod())
               .addMethod(getSendUploadInfoMethod())
+              .addMethod(getGetHashTableMethod())
               .build();
         }
       }

@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 service P2PService {
     rpc SendGreeting(GreetingRequest) returns (GreetingResponse);
     rpc SendUploadInfo(UploadInfoRequest) returns (UploadInfoResponse);
+    rpc getHashTable(Empty) returns (HashTableResponse);
 }
 
 // Message request to send the greeting
@@ -28,3 +29,14 @@ message UploadInfoRequest {
 message UploadInfoResponse {
   string message = 1;
 }
+
+message HashTableResponse {
+    repeated HashTableEntry entries = 1;
+}
+
+message HashTableEntry {
+  int32 key = 1;
+  repeated int32 peers = 2;
+}
+
+message Empty {}
