@@ -21,6 +21,7 @@ En esta versión del reto se implementa una red P2P basada y soportada en una ta
 Conexión entre Peers:
 -El sistema permite la conexión de dos peers en la red P2P.
 -Los peers pueden interactuar entre sí como cliente y servidor a la vez.
+-El sistema permite la desconexión de peers en la red P2P.
 
 Búsqueda de Archivos:
 -Desde cualquier peer, es posible realizar búsquedas de archivos en la red utilizando la DHT.
@@ -33,6 +34,8 @@ Notificación de Nuevos Archivos:
 Interfaz Gráfica (GUI):
 -Se ha desarrollado una interfaz gráfica básica para interactuar con el sistema. Permite al usuario subir y buscar archivos desde cualquier peer.
 
+Replicación y Actualización de Peers Nuevos:
+-Si un archivo es subido y luego un peer se une a la red, el nuevo peer puede actualizarse y obtener la información de los archivos existentes antes de su conexión.
 
 # Requerimientos No Funcionales:
 
@@ -55,16 +58,18 @@ Comunicación gRPC:
 # Requerimientos Funcionales:
 
 Gestión Completa de Join/Leave:
--Aunque los peers pueden conectarse, no se ha implementado completamente el proceso de actualización automática de las tablas de predecesor y sucesor en la red cuando un peer se une o abandona.
+-Aunque los peers pueden conectarse y desconectarse, no se ha implementado completamente el proceso de actualización automática de las tablas de predecesor y sucesor en la red cuando un peer se une o abandona.
 -Faltan detalles en la actualización automática de la DHT cuando un peer deja la red.
 
 Partición y Replicación:
--No se ha implementado la partición ni la replicación de archivos en la red, algo necesario para garantizar la disponibilidad de archivos en caso de que un peer deje de estar disponible.
--Este proceso es esencial para mantener la resiliencia en redes distribuidas.
+-Aunque se ha abordado la replicación de archivos para nuevos peers, aún no se implementa una replicación robusta que asegure la disponibilidad de archivos en caso de fallas o desconexiones de múltiples peers.
 
 Transferencia Real de Archivos:
 -Actualmente, no se ha implementado la transferencia real de archivos. Se utiliza un servicio dummy para simular la transferencia.
 -La transmisión real de archivos entre peers aún debe desarrollarse para completar la funcionalidad de almacenamiento y recuperación.
+
+Manejo Completo de Desconexiones de Peers:
+-Aunque se notifica la desconexión de peers, falta una gestión robusta que asegure la redistribución adecuada de los archivos y la actualización de la DHT en caso de una salida inesperada de un peer.
 
 # Requerimientos No Funcionales:
 
