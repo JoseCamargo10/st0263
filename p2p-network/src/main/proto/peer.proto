@@ -9,6 +9,7 @@ service P2PService {
     rpc SendGreeting(GreetingRequest) returns (GreetingResponse);
     rpc SendUploadInfo(UploadInfoRequest) returns (UploadInfoResponse);
     rpc getHashTable(Empty) returns (HashTableResponse);
+    rpc notifyDisconnection(DisconnectRequest) returns (DisconnectResponse);
 }
 
 // Message request to send the greeting
@@ -40,3 +41,11 @@ message HashTableEntry {
 }
 
 message Empty {}
+
+message DisconnectRequest {
+    int32 peerID = 1;
+}
+
+message DisconnectResponse {
+    string message = 1;
+}

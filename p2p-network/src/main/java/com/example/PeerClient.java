@@ -15,6 +15,8 @@ import com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse;
 import com.example.p2pnetwork.P2PServiceProto.HashTableEntry;
 import com.example.p2pnetwork.P2PServiceProto.HashTableResponse;
 import com.example.p2pnetwork.P2PServiceProto.Empty;
+import com.example.p2pnetwork.P2PServiceProto.DisconnectRequest;
+import com.example.p2pnetwork.P2PServiceProto.DisconnectResponse;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -33,7 +35,6 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class PeerClient {
-
     private final int peerID;
     private final int port;
     private static final Map<Integer, List<Integer>> hashTable = new HashMap<>();
@@ -347,5 +348,13 @@ public class PeerClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void removePeer(int peerID) {
+        for (Map.Entry<Integer, List<Integer>> entry : hashTable.entrySet()) {
+            List<Integer> peers = entry.getValue();
+            peers.remove(Integer.valueOf(peerID));
+        }
+        System.out.println("Peer " + peerID + " removed from hash table.");
     }
 }

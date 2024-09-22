@@ -9,6 +9,8 @@ import com.example.p2pnetwork.P2PServiceProto.UploadInfoResponse;
 import com.example.p2pnetwork.P2PServiceProto.HashTableEntry;
 import com.example.p2pnetwork.P2PServiceProto.HashTableResponse;
 import com.example.p2pnetwork.P2PServiceProto.Empty;
+import com.example.p2pnetwork.P2PServiceProto.DisconnectRequest;
+import com.example.p2pnetwork.P2PServiceProto.DisconnectResponse;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -58,6 +60,7 @@ public class PeerServer {
     // Stop gRPC server
     public void stopServer() {
         if (server != null) {
+            notifyPeersAboutDisconnection();
             server.shutdown();
         }
     }
@@ -66,6 +69,51 @@ public class PeerServer {
     public void blockUntilShutdown() throws InterruptedException {
         if (server != null) {
             server.awaitTermination();
+        }
+    }
+
+    private void notifyPeersAboutDisconnection() {
+        ExecutorService executor = Executors.newFixedThreadPool(12);
+        
+        try {
+            for (int i = 50051; i < 50062; i++) {
+                if (i != port) {
+                    final int lambda_i = i;
+                    Callable<Void> task = () -> {
+                        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", lambda_i)
+                                .usePlaintext()
+                                .build();
+    
+                        P2PServiceGrpc.P2PServiceBlockingStub blockingStub = P2PServiceGrpc.newBlockingStub(channel);
+    
+                        DisconnectRequest request = DisconnectRequest.newBuilder()
+                                .setPeerID(peerID)
+                                .build();
+    
+                        try {
+                            DisconnectResponse response = blockingStub.notifyDisconnection(request);
+                            System.out.println("Peer " + lambda_i + " responded: " + response.getMessage());
+                        } catch (StatusRuntimeException e) {
+                            System.err.println("RPC failed on port " + lambda_i + ": " + e.getStatus());
+                        } finally {
+                            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+                        }
+                        return null;
+                    };
+    
+                    executor.submit(task);
+                }
+            }
+        } finally {
+            executor.shutdown();
+            try {
+                if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executor.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
@@ -123,6 +171,22 @@ public class PeerServer {
             }
 
             HashTableResponse response = responseBuilder.build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+
+        @Override
+        public void notifyDisconnection(DisconnectRequest request, StreamObserver<DisconnectResponse> responseObserver) {
+            int disconnectedPeerID = request.getPeerID();
+
+            // Remove the peer from the hash table in all peers
+            PeerClient.removePeer(disconnectedPeerID);
+
+            // Create response
+            DisconnectResponse response = DisconnectResponse.newBuilder()
+                    .setMessage("Peer " + disconnectedPeerID + " disconnected.")
+                    .build();
+
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }
