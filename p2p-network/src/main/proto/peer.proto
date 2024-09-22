@@ -7,18 +7,9 @@ import "google/protobuf/empty.proto";
 
 service P2PService {
     rpc SendGreeting(GreetingRequest) returns (GreetingResponse);
-
-    // Ask position (predecessor and successor) for a new peer
-    rpc JoinNetwork(JoinRequest) returns (JoinResponse);
-
-    // Notify a peer about its new successor
-    rpc UpdateSuccessor(PeerInfo) returns (google.protobuf.Empty);
-
-    // Notify a peer about its new predecessor
-    rpc UpdatePredecessor(PeerInfo) returns (google.protobuf.Empty);
-
-    // Notify that a peer is leaving the network
-    rpc NotifyLeave(LeaveRequest) returns (google.protobuf.Empty);
+    rpc SendUploadInfo(UploadInfoRequest) returns (UploadInfoResponse);
+    rpc getHashTable(Empty) returns (HashTableResponse);
+    rpc notifyDisconnection(DisconnectRequest) returns (DisconnectResponse);
 }
 
 // Message request to send the greeting
@@ -31,31 +22,30 @@ message GreetingResponse {
   string reply = 1; // Respuesta de confirmación
 }
 
-// Maybe useful for incoming implementation of DHT
-// ---------------------------------------------------------------------------------------
-message PeerInfo {
-    int32 peerID = 1;         // Unique ID for every peer
-    string address = 2;       // IP Direction for peers (localhost in development)
-    int32 port = 3;           // Port which peer uses to listen
+message UploadInfoRequest {
+  int32 key = 1;
+  repeated int32 peers = 2;
 }
 
-// Mesage to return peer's predecessor and successor
-message PeerPosition {
-    PeerInfo predecessor = 1;
-    PeerInfo successor = 2;
+message UploadInfoResponse {
+  string message = 1;
 }
 
-// Request to join the network, sending new peer's information
-message JoinRequest {
-    PeerInfo newPeer = 1;
+message HashTableResponse {
+    repeated HashTableEntry entries = 1;
 }
 
-// Response to join the network, returning assigned predecessor and successor
-message JoinResponse {
-    PeerPosition position = 1;
+message HashTableEntry {
+  int32 key = 1;
+  repeated int32 peers = 2;
 }
 
-// Message to notify any peer's disconnection
-message LeaveRequest {
-    PeerInfo leavingPeer = 1;
+message Empty {}
+
+message DisconnectRequest {
+    int32 peerID = 1;
+}
+
+message DisconnectResponse {
+    string message = 1;
 }
