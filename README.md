@@ -129,7 +129,7 @@ En el caso de la fórmula NodeID + 2^i mod (tamaño del anillo) en Chord:
 Data Items (Key Hash): Esta columna almacena los archivos que el peer es responsable de mantener. Los archivos están identificados por el valor hash de su clave (por ejemplo, el nombre del archivo), y se almacenan en el peer cuyo ID es mayor o igual al hash del archivo.
 
 
-## 2. Diagrama de Flujo de Conexiones entre Peers
+#### 2.2. Diagrama de Flujo de Conexiones entre Peers
 ![alt text](image-3.png)
 
 Este flujo explica cómo se unen o salen los peers de la red y cómo se actualizan los sucesores y predecesores de los nodos en la red.
@@ -156,7 +156,7 @@ Este flujo explica cómo se unen o salen los peers de la red y cómo se actualiz
 
 **Criterio para evitar puntos únicos de fallo:** En lugar de que un nodo central coordine las conexiones y salidas, la responsabilidad de gestionar la conexión está distribuida. Esto asegura que la red siga funcionando incluso si varios peers se desconectan inesperadamente.
 
-## 3. Distribución de la DHT
+#### 2.3. Distribución de la DHT
 Este flujo describe cómo los peers distribuyen y mantienen la DHT en la red. Siguiendo la estructura de Chord, los archivos se asignan de acuerdo con el hash de su clave.
 
 **Decisión:** Utilizar tablas finger (finger tables) para mejorar la eficiencia de búsqueda.
@@ -180,7 +180,7 @@ Este flujo describe cómo los peers distribuyen y mantienen la DHT en la red. Si
 - Escalabilidad: Mantener referencias a todos los peers de la red es ineficiente a gran escala. En cambio, las finger tables permiten un número reducido de referencias (log(N)), mejorando la eficiencia de la búsqueda sin sobrecargar a los peers con información innecesaria.
 
 
-## 4. Diagrama de Flujo para Transmisiones de Archivos
+#### 2.4. Diagrama de Flujo para Transmisiones de Archivos
 ![alt text](image-4.png)
 
 **Decisión:** Uso de transmisión simulada utilizando servicios gRPC en lugar de transmisión real de archivos.
@@ -198,7 +198,7 @@ Este flujo describe cómo los peers distribuyen y mantienen la DHT en la red. Si
 **Criterio para simular la transmisión:**
     - Simplificación del proyecto: Simular la transmisión reduce la complejidad del proyecto y permite centrarse en los aspectos más importantes, como la distribución de claves, las conexiones entre peers y la replicación.
 
-## 5. Flujo para Partición y Replicación
+#### 2.5. Flujo para Partición y Replicación
 Para mejorar la resiliencia y disponibilidad, implementamos partición y replicación. Cada archivo puede particionarse en múltiples fragmentos, y cada fragmento se almacena en varios peers (replicación).
 
 **Decisión:** Particionar archivos y replicar los fragmentos en múltiples peers (mínimo 2 replicas).
